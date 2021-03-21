@@ -8,6 +8,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
+    @current_user = current_user
+    RoomUser.find_or_create_by(user: current_user, room: @room)
   end
 
   # GET /rooms/new
