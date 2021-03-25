@@ -36,9 +36,11 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1 or /games/1.json
   def update
+    success = @game.update(game_params)
     respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to @game, notice: "Game was successfully updated." }
+      if success
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("game_#{@game.id}", partial: "games/game.html.erb", locals: { game: @game }) }
+        format.html { redirect_to @game, notice: "Name was successfully updated." }
         format.json { render :show, status: :ok, location: @game }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,6 +66,6 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.fetch(:game, {})
+      params.require(:game).permit(:status)
     end
 end

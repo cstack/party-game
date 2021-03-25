@@ -1,1 +1,16 @@
-Game <%= game.id %>
+<%= turbo_frame_tag "game_#{game.id}" do %>
+	<% if game.status == 'waiting_for_players' %>
+		<%= form_with model: game do |form| %>
+			<%= form.hidden_field :status, value: 'started' %>
+			<%= form.submit "Start Game" %>
+		<% end %>
+	<% else %>
+		<p id="<%= dom_id game %>">
+			<%= game.status %>
+		</p>
+		<%= form_with model: game do |form| %>
+			<%= form.hidden_field :status, value: 'waiting_for_players' %>
+			<%= form.submit "Restart Game" %>
+		<% end %>
+	<% end %>
+<% end %>

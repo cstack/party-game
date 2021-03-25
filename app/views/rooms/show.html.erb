@@ -1,10 +1,9 @@
 <%= turbo_stream_from @room %>
 
-<% if @room.game.present? %>
-	<% render @room.game %>
-<% else %>
-	<h1>Users:</h1>
+<h1>Users:</h1>
+<%= turbo_frame_tag "room_users" do %>
 	<% @room.room_users.each do |room_user| %>
 		<%= render room_user %>
 	<% end %>
 <% end %>
+<%= render @room.game %>
