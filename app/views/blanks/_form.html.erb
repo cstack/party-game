@@ -1,0 +1,32 @@
+<%= form_with(model: blank) do |form| %>
+  <% if blank.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(blank.errors.count, "error") %> prohibited this blank from being saved:</h2>
+
+      <ul>
+        <% blank.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :movie_id %>
+    <%= form.text_field :movie_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :key %>
+    <%= form.text_area :key %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_area :value %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

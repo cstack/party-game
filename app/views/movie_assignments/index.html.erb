@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Movie Assignments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie</th>
+      <th>User</th>
+      <th>Game</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movie_assignments.each do |movie_assignment| %>
+      <tr>
+        <td><%= movie_assignment.movie_id %></td>
+        <td><%= movie_assignment.user_id %></td>
+        <td><%= movie_assignment.game_id %></td>
+        <td><%= link_to 'Show', movie_assignment %></td>
+        <td><%= link_to 'Edit', edit_movie_assignment_path(movie_assignment) %></td>
+        <td><%= link_to 'Destroy', movie_assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movie Assignment', new_movie_assignment_path %>

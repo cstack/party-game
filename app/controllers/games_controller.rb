@@ -39,8 +39,7 @@ class GamesController < ApplicationController
     success = @game.update(game_params)
     respond_to do |format|
       if success
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("game_#{@game.id}", partial: "games/game.html.erb", locals: { game: @game }) }
-        format.html { redirect_to @game, notice: "Name was successfully updated." }
+        format.html { redirect_to @game.room }
         format.json { render :show, status: :ok, location: @game }
       else
         format.html { render :edit, status: :unprocessable_entity }

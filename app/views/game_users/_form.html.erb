@@ -1,0 +1,27 @@
+<%= form_with(model: game_user) do |form| %>
+  <% if game_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game_user.errors.count, "error") %> prohibited this game_user from being saved:</h2>
+
+      <ul>
+        <% game_user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :game_id %>
+    <%= form.text_field :game_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

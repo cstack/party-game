@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Blanks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blanks.each do |blank| %>
+      <tr>
+        <td><%= blank.movie_id %></td>
+        <td><%= blank.key %></td>
+        <td><%= blank.value %></td>
+        <td><%= link_to 'Show', blank %></td>
+        <td><%= link_to 'Edit', edit_blank_path(blank) %></td>
+        <td><%= link_to 'Destroy', blank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Blank', new_blank_path %>

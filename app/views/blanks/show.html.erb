@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Movie:</strong>
+  <%= @blank.movie_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @blank.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @blank.value %>
+</p>
+
+<%= link_to 'Edit', edit_blank_path(@blank) %> |
+<%= link_to 'Back', blanks_path %>

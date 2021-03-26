@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Movie:</strong>
+  <%= @movie_assignment.movie_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @movie_assignment.user_id %>
+</p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @movie_assignment.game_id %>
+</p>
+
+<%= link_to 'Edit', edit_movie_assignment_path(@movie_assignment) %> |
+<%= link_to 'Back', movie_assignments_path %>
