@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :rooms do
     post 'start_game', to: 'rooms#start_game'
+    post 'test_broadcast', to: 'rooms#test_broadcast'
   	resources :messages
   	resources :room_users
   end

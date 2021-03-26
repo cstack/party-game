@@ -1,7 +1,4 @@
-<p id="<%= dom_id user %>">
-	<% if user == 'foo' %>
-		<%= user.name %>
-	<% else %>
-		<%= user.name %>
-	<% end %>
-</p>
+<%= turbo_frame_tag "user_#{user.id}" do %>
+	<%= user.name %>
+	(<%= link_to 'Edit Name', edit_user_path(user) %>)
+<% end %>

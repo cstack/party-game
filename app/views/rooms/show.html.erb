@@ -1,15 +1,6 @@
 <%= turbo_stream_from @room %>
+<%= turbo_stream_from "room_#{@room.id}_user_#{@room.viewer.id}" %>
 
-<% if @room.game.nil? %>
-	<h1>Users:</h1>
-	<%= turbo_frame_tag "room_users" do %>
-		<% @room.room_users.each do |room_user| %>
-			<%= render room_user %>
-		<% end %>
-	<% end %>
-	<%= form_with url: "#{@room.id}/start_game", method: :post do |form| %>
-		<%= form.submit "Start Game" %>
-	<% end %>
-<% else %>
-	<%= render @room.game %>
+<%= turbo_frame_tag "room_#{@room.id}" do %>
+	<%= render @room %>
 <% end %>

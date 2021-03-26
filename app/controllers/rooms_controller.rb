@@ -6,9 +6,9 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1 or /rooms/1.json
   def show
-    set_room
-    @current_user = current_user
+    @room = Room.find(params[:id]).from_perspective_of(current_user)
     RoomUser.find_or_create_by(user: current_user, room: @room)
+    helpers.broadcast_user_joined_room(user: current_user, room: @room)
   end
 
   # GET /rooms/new
@@ -21,14 +21,28 @@ class RoomsController < ApplicationController
   end
 
   def start_game
+    Rails.logger.info "DEBUG - start_game"
     @room = Room.find(params[:room_id])
     @room.new_game!
+    other_users = @room.users - [current_user]
+    Rails.logger.info "DEBUG - @room.users -> #{@room.users.map(&:id)}"
+    Rails.logger.info "DEBUG - current_user -> #{current_user.id}"
+    Rails.logger.info "DEBUG - other_users -> #{other_users.map(&:id)}"
+    other_users.each do |user|
+      Rails.logger.info "DEBUG - (Room #{@room.id}).broadcast_replace_to room_#{@room.id}_user_#{user.id}"
+      @room.from_perspective_of(user).broadcast_replace_to "room_#{@room.id}_user_#{user.id}"
+    end
     redirect_to @room
+  end
+
+  def test_broadcast
+    @room = Room.find(params[:room_id])
+    @room.from_perspective_of(current_user).broadcast_replace_to "room_#{@room.id}_user_#{current_user.id}"
   end
 
   # POST /rooms or /rooms.json
   def create
-    @room = Room.new(room_params)
+    @room = Room.new
 
     respond_to do |format|
       if @room.save

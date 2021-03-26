@@ -16,4 +16,10 @@ class Room < ApplicationRecord
 			MovieAssignment.create!(movie: movie, user: user, game: game)
 		end
 	end
+
+	attr_reader :viewer
+	def from_perspective_of(user)
+		@viewer = user
+		self
+	end
 end

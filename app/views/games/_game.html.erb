@@ -14,11 +14,11 @@
 		<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: true %>
 		<%= form.submit "VOTE!" %>
 	<% end %>
-<% elsif game.movie_for(@current_user).complete? %>
-	<%= render game.movie_for(@current_user) %>
+<% elsif game.movie_for(game.room.viewer).complete? %>
+	<%= render game.movie_for(game.room.viewer) %>
 	<p>Waiting for other players to finish...</p>
 <% else %>
-	<%= render game.movie_for(@current_user) %>
+	<%= render game.movie_for(game.room.viewer) %>
 	<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post do |form| %>
 		<%= form.text_field :value %>
 		<%= form.submit "Submit" %>

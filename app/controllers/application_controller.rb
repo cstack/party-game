@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 	before_action :set_current_user, only: %i[ show edit update destroy ]
+	before_action :set_debug
 	
 	private
 
@@ -16,5 +17,9 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
   	@current_user = current_user
+  end
+
+  def set_debug
+  	@debug = true
   end
 end

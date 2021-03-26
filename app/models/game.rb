@@ -19,7 +19,7 @@ class Game < ApplicationRecord
 	def record_vote!(user:, movie:)
 		Vote.create!(user: user, movie: movie)
 		if all_votes_collected?
-			broadcast_replace_to room
+			# broadcast_replace_to room
 		end
 	end
 
@@ -32,6 +32,7 @@ class Game < ApplicationRecord
 	end
 
 	def movie_for(user)
+		raise "user is nil" if user.nil?
 		movie_assignments.find_by(user: user).movie
 	end
 
