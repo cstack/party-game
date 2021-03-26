@@ -7,6 +7,7 @@ class RoomUsersController < ApplicationController
   def update
     new_name = params.require(:room_user)[:name]
     success = @room_user.user.update(name: new_name)
+    helpers.broadcast_username_change(room_user: @room_user)
     respond_to do |format|
       if success
         format.turbo_stream { render turbo_stream: turbo_stream.replace("room_user_#{@room_user.id}", partial: "room_users/room_user.html.erb", locals: { room_user: @room_user }) }

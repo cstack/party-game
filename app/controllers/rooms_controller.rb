@@ -7,8 +7,11 @@ class RoomsController < ApplicationController
   # GET /rooms/1 or /rooms/1.json
   def show
     @room = Room.find(params[:id]).from_perspective_of(current_user)
-    RoomUser.find_or_create_by(user: current_user, room: @room)
-    helpers.broadcast_user_joined_room(user: current_user, room: @room)
+    room_user = RoomUser.find_or_initialize_by(user: current_user, room: @room)
+    if room_user.new_record?
+      room_user.save
+      helpers.broadcast_user_joined_room(user: current_user, room: @room)
+    end
   end
 
   # GET /rooms/new
