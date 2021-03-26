@@ -1,6 +1,4 @@
 <%= turbo_stream_from @room %>
 <%= turbo_stream_from "room_#{@room.id}_user_#{@room.viewer.id}" %>
 
-<%= turbo_frame_tag "room_#{@room.id}" do %>
-	<%= render @room %>
-<% end %>
+<%= render @room %>
