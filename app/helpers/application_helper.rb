@@ -8,4 +8,25 @@ module ApplicationHelper
 		Rails.logger.info("DEBUG - broadcast_username_change")
 		room_user.broadcast_replace_to room_user.room
 	end
+
+	def broadcast_game_start(room:)
+		Rails.logger.info("DEBUG - broadcast_game_start")
+		room.users.each do |user|
+			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
+		end
+	end
+
+	def broadcast_advance_turn(game:)
+		Rails.logger.info("DEBUG - broadcast_advance_turn")
+		game.users.each do |user|
+			game.room.from_perspective_of(user).broadcast_replace_to "room_#{game.room.id}_user_#{user.id}"
+		end
+	end
+
+	def broadcast_all_votes_in(game:)
+		Rails.logger.info("DEBUG - broadcast_all_votes_in")
+		game.users.each do |user|
+			game.room.from_perspective_of(user).broadcast_replace_to "room_#{game.room.id}_user_#{user.id}"
+		end
+	end
 end

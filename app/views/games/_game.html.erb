@@ -10,17 +10,21 @@
 	<% game.movies.each do |movie| %>
 		<%= render movie %>
 	<% end %>
-	<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
-		<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: true %>
-		<%= form.submit "VOTE!" %>
+	<% if game.has_vote?(game.room.viewer) %>
+		<p>Waiting for other players to vote...</p>
+	<% else %>
+		<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
+			<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: true %>
+			<%= form.submit "VOTE!" %>
+		<% end %>
 	<% end %>
-<% elsif game.movie_for(game.room.viewer).complete? %>
-	<%= render game.movie_for(game.room.viewer) %>
-	<p>Waiting for other players to finish...</p>
-<% else %>
+<% elsif game.movie_for(game.room.viewer).waiting_for_input? %>
 	<%= render game.movie_for(game.room.viewer) %>
 	<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post do |form| %>
 		<%= form.text_field :value %>
 		<%= form.submit "Submit" %>
 	<% end %>
+<% else %>
+	<%= render game.movie_for(game.room.viewer) %>
+	<p>Waiting for other players...</p>
 <% end %>

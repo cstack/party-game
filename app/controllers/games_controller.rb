@@ -23,6 +23,10 @@ class GamesController < ApplicationController
     game = Game.find(params[:game_id])
     movie = game.movie_for(current_user)
     movie.fill_in_the_blank(params[:value])
+    if game.ready_to_advance_turn?
+      game.advance_turn!
+      helpers.broadcast_advance_turn(game: game)
+    end
     redirect_to game.room
   end
 
@@ -30,6 +34,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:game_id])
     movie = Movie.find(params[:movie_id])
     game.record_vote!(user: current_user, movie: movie)
+    helpers.broadcast_all_votes_in(game: game)
     redirect_to game.room
   end
 

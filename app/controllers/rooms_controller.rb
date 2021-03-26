@@ -24,17 +24,9 @@ class RoomsController < ApplicationController
   end
 
   def start_game
-    Rails.logger.info "DEBUG - start_game"
     @room = Room.find(params[:room_id])
     @room.new_game!
-    other_users = @room.users - [current_user]
-    Rails.logger.info "DEBUG - @room.users -> #{@room.users.map(&:id)}"
-    Rails.logger.info "DEBUG - current_user -> #{current_user.id}"
-    Rails.logger.info "DEBUG - other_users -> #{other_users.map(&:id)}"
-    other_users.each do |user|
-      Rails.logger.info "DEBUG - (Room #{@room.id}).broadcast_replace_to room_#{@room.id}_user_#{user.id}"
-      @room.from_perspective_of(user).broadcast_replace_to "room_#{@room.id}_user_#{user.id}"
-    end
+    helpers.broadcast_game_start(room: @room)
     redirect_to @room
   end
 

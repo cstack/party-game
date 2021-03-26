@@ -5,11 +5,18 @@ class Movie < ApplicationRecord
 
 	def fill_in_the_blank(value)
 		blanks.last.update!(value: value)
-		next_blank = create_next_blank!
 	end
 
 	def complete?
-		blanks.last.value.present? && Blank.key_after(blanks.last.key).nil?
+		on_last_blank? && !waiting_for_input?
+	end
+
+	def on_last_blank?
+		Blank.key_after(blanks.last.key).nil?
+	end
+
+	def waiting_for_input?
+		blanks.last.value.nil?
 	end
 
 	def next_key

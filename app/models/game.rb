@@ -23,8 +23,22 @@ class Game < ApplicationRecord
 		end
 	end
 
+	def ready_to_advance_turn?
+		movies.none?(&:waiting_for_input?)
+	end
+
+	def advance_turn!
+		movies.each do |movie|
+			next_blank = movie.create_next_blank!
+		end
+	end
+
 	def all_movies_complete?
 		movies.all?(&:complete?)
+	end
+
+	def has_vote?(user)
+		votes.find_by(user: user).present?
 	end
 
 	def all_votes_collected?
