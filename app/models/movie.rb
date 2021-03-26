@@ -36,7 +36,7 @@ class Movie < ApplicationRecord
 	end
 
 	def get(key)
-		blanks.find_by(key: key).value
+		blanks.find_by(key: key)&.value
 	end
 
 	def title
@@ -47,7 +47,11 @@ class Movie < ApplicationRecord
 		votes.count
 	end
 
-	def non_title_blanks
-		blanks.where.not(key: 'title')
+	def blanks_to_render
+		if title.present?
+			blanks.where.not(key: 'title')
+		else
+			blanks
+		end
 	end
 end

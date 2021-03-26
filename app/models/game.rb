@@ -31,6 +31,16 @@ class Game < ApplicationRecord
 		movies.each do |movie|
 			next_blank = movie.create_next_blank!
 		end
+		rotate_movie_assignments!
+	end
+
+	def rotate_movie_assignments!
+		assignments = movie_assignments.sort_by(&:id)
+		movie_ids = assignments.map(&:movie_id)
+		movie_ids = movie_ids.drop(1) + [movie_ids.first]
+		assignments.zip(movie_ids).each do |assignment, movie_id|
+			assignment.update!(movie_id: movie_id)
+		end
 	end
 
 	def all_movies_complete?

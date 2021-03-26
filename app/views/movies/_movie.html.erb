@@ -5,7 +5,7 @@
 <% end %>
 <div class="movie">
 	<p>
-		<% movie.non_title_blanks.each do |blank| %>
+		<% movie.blanks_to_render.each do |blank| %>
 			<%= render blank %>
 		<% end %>
 	</p>
