@@ -1,1 +1,11 @@
-_movie.html.erb <%= movie.id %>
+<% if movie.complete? %>
+<% else %>
+	<p>The movie so far...</p>
+<% end %>
+<div class="movie">
+	<p>
+		<% movie.blanks.each do |blank| %>
+			<%= render blank %>
+		<% end %>
+	</p>
+</div>

@@ -22,7 +22,7 @@ class RoomsController < ApplicationController
 
   def start_game
     @room = Room.find(params[:room_id])
-    @room.game.start!
+    @room.new_game!
     redirect_to @room
   end
 

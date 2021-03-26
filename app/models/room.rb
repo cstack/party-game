@@ -1,10 +1,19 @@
 class Room < ApplicationRecord
-	has_one :game
+	has_many :games
 	has_many :room_users
 	has_many :users, through: :room_users
-	after_initialize :ensure_game
 
-	def ensure_game
-		self.game ||= Game.new
+	def game
+		games.last
+	end
+
+	def new_game!
+		Game.create!(room: self, users: users, status: 'started')
+		users.each do |user|
+			game.users << user
+			movie = Movie.create!(game: game)
+			movie.create_first_blank!
+			MovieAssignment.create!(movie: movie, user: user, game: game)
+		end
 	end
 end

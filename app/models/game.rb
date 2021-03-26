@@ -1,9 +1,10 @@
 class Game < ApplicationRecord
 	belongs_to :room
 	has_many :movie_assignments
-	has_many :movies
+	has_many :movies, through: :movie_assignments
 	has_many :game_users
 	has_many :users, through: :game_users
+	has_many :votes, through: :movies
 
 	VALID_STATUSES = ['waiting_for_players', 'started']
 
@@ -15,16 +16,26 @@ class Game < ApplicationRecord
 		self.status ||= 'waiting_for_players'
 	end
 
-	def start!
-		room.users.each do |user|
-			users << user
-			movie_assignments << MovieAssignment.new(movie: Movie.new, user: user)
+	def record_vote!(user:, movie:)
+		Vote.create!(user: user, movie: movie)
+		if all_votes_collected?
+			broadcast_replace_to room
 		end
-		self.status = 'started'
-		save!
+	end
+
+	def all_movies_complete?
+		movies.all?(&:complete?)
+	end
+
+	def all_votes_collected?
+		votes.map(&:user_id).uniq.sort == users.map(&:id).uniq.sort
 	end
 
 	def movie_for(user)
 		movie_assignments.find_by(user: user).movie
+	end
+
+	def best_picture
+		movies.max_by(&:num_votes)
 	end
 end

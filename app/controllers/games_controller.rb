@@ -19,6 +19,20 @@ class GamesController < ApplicationController
   def edit
   end
 
+  def fill_in_the_blank
+    game = Game.find(params[:game_id])
+    movie = game.movie_for(current_user)
+    movie.fill_in_the_blank(params[:value])
+    redirect_to game.room
+  end
+
+  def vote
+    game = Game.find(params[:game_id])
+    movie = Movie.find(params[:movie_id])
+    game.record_vote!(user: current_user, movie: movie)
+    redirect_to game.room
+  end
+
   # POST /games or /games.json
   def create
     @game = Game.new(game_params)
