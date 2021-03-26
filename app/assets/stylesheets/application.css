@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-turbo-frame {
+.debug turbo-frame {
 	display: block;
 	border: 1px solid blue;
 }
@@ -29,14 +29,22 @@ body {
   margin: 10px;
 }
 
-.movie {
+.debug .movie {
 	border: 1px solid purple;
+}
+
+.movie {
 	font-size: 25px;
 	line-height: 40px;
 }
 
-.fill_in_the_blank {
+.debug .fill_in_the_blank {
 	border: 1px solid green;
+}
+
+.fill_in_the_blank {
 	text-decoration: underline;
 	font-weight: bold;
 }
+
+

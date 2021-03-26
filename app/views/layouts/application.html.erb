@@ -12,7 +12,7 @@
     <%= yield :head %>
   </head>
 
-  <body>
+  <body class="<%= @debug ? 'debug' : '' %>">
     <%= yield %>
   </body>
 </html>
