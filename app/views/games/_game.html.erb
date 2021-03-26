@@ -6,7 +6,7 @@
 	<% end %>
 <% elsif game.all_movies_complete? %>
 	<h1>Vote for best picture!</h1>
-	<h2>Nominees:</h2>
+	<h3>Nominees:</h3>
 	<% game.movies.each do |movie| %>
 		<%= render movie %>
 	<% end %>

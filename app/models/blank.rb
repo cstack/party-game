@@ -24,6 +24,64 @@ class Blank < ApplicationRecord
 	  		suffix: '',
 	  	},
 	  ],
+    [
+      :setting,
+      {
+        prefix: 'in',
+        placeholder: '(setting)',
+        suffix: '.',
+      },
+    ],
+    [
+      :role2,
+      {
+        prefix: 'They meet a(n)',
+        suffix: '',
+      },
+    ],
+    [
+      :actor2,
+      {
+        prefix: 'played by',
+        suffix: '.',
+      },
+    ],
+    [
+      :goal,
+      {
+        prefix: 'The protagonist must',
+        suffix: '',
+      },
+    ],
+    [
+      :problem,
+      {
+        prefix: ', but there is a problem:',
+        suffix: '.',
+      },
+    ],
+    [
+      :twist,
+      {
+        prefix: 'To makes things even worse,',
+        suffix: '.',
+      },
+    ],
+    [
+      :resolution,
+      {
+        prefix: 'But by the end of the moive,',
+        suffix: '.',
+      },
+    ],
+    [
+      :title,
+      {
+        prompt: 'Now what should the movie be called?',
+        prefix: '',
+        suffix: '',
+      },
+    ],
   ]
 
   class << self
@@ -49,12 +107,20 @@ class Blank < ApplicationRecord
   	self.class.config_for(key)
   end
 
+  def prompt?
+    config[:prompt].present?
+  end
+
   def prompt
-  	if config[:prompt]
-  		config[:prompt]
-  	else
-  		"#{prefix} ... #{suffix}"
-  	end
+    config[:prompt]
+  end
+
+  def placeholder
+    if config[:placeholder].present?
+      config[:placeholder]
+    else
+      "..."
+    end
   end
 
   def prefix

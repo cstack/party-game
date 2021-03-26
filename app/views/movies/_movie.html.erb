@@ -1,10 +1,11 @@
 <% if movie.complete? %>
+	<h2><%= movie.title %></h2>
 <% else %>
 	<p>The movie so far...</p>
 <% end %>
 <div class="movie">
 	<p>
-		<% movie.blanks.each do |blank| %>
+		<% movie.non_title_blanks.each do |blank| %>
 			<%= render blank %>
 		<% end %>
 	</p>

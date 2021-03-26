@@ -40,10 +40,14 @@ class Movie < ApplicationRecord
 	end
 
 	def title
-		"Movie starring #{get('actor1')}"
+		get('title')
 	end
 
 	def num_votes
 		votes.count
+	end
+
+	def non_title_blanks
+		blanks.where.not(key: 'title')
 	end
 end
