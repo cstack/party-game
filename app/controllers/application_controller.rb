@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 	def current_user
 		current_user_token = session[:current_user_token]
     @_current_user ||= if current_user_token
-			User.find_or_initialize_by(token: current_user_token)
+			User.find_or_create_by(token: current_user_token)
 		else
-			user = User.new
+			user = User.create
 			session[:current_user_token] = user.token
 			user
 		end
