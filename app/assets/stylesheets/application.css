@@ -13,10 +13,6 @@
  *= require_tree .
  *= require_self
  */
-.debug turbo-frame {
-	display: block;
-	border: 1px solid blue;
-}
 
 * {
   margin: 0;
@@ -29,22 +25,95 @@ body {
   margin: 10px;
 }
 
-.debug .movie {
-	border: 1px solid purple;
+p {
+	margin: 10px 0px;
+}
+
+.nav {
+  margin-top: 50px;
 }
 
 .movie {
-	font-size: 25px;
-	line-height: 40px;
+  padding: 5px;
+  margin: 15px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 6px;
 }
 
-.debug .fill_in_the_blank {
-	border: 1px solid green;
+.movie_title {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.movie_description {
+	font-size: 25px;
+	line-height: 40px;
 }
 
 .fill_in_the_blank {
 	text-decoration: underline;
 	font-weight: bold;
+}
+
+input[type=submit] {
+  display: block;
+  margin: 20px 0px;
+  padding: 10px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 38px;
+  overflow: hidden;
+  background: #4dbecf;
+  border-radius: 3px;
+  box-shadow: 0 15px 30px rgba(black,.1);
+  border: 0;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+input[type=text] {
+	display: inline;
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 1rem 1rem 1rem;
+  font-size: 20px;
+}
+
+select {
+  border-radius: 2px;
+  padding: 1rem 1rem 1rem;
+  font-size: 20px;
+}
+
+.users {
+	font-size: 20px;
+}
+
+.users p {
+	padding: 5px;
+	border-left: 1px solid gray;
+}
+
+input[type=submit].inline {
+	display: inline;
+}
+
+
+/* DEBUG */
+
+.debug turbo-frame {
+	display: block;
+	border: 1px solid blue;
+}
+
+.debug .movie {
+	border: 1px solid purple;
+}
+
+.debug .fill_in_the_blank {
+	border: 1px solid green;
 }
 
 

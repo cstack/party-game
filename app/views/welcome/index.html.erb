@@ -1,9 +1,11 @@
-<h2>Party Game Beta Wooo!</h2>
+<h1>Party Game Beta Wooo!</h1>
 
 <p>You are:</p>
-<%= turbo_frame_tag "user_#{@user.id}" do %>
-	<%= render @user %>
-<% end %>
+<div class="users">
+	<%= turbo_frame_tag "user_#{@user.id}" do %>
+		<%= render @user %>
+	<% end %>
+</div>
 
 <%= form_with model: @room do |form| %>
   <div class="actions">

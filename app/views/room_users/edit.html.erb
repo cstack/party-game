@@ -4,7 +4,7 @@
 	<%= form_with(model: [ @room_user.room, @room_user ]) do |form| %>
 		<div class="field">
 			<%= form.text_field :name %>
-			<%= form.submit "Save" %>
+			<%= form.submit "Save", class: 'inline' %>
 		</div>
 	<% end %>
 <% end %>

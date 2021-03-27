@@ -2,3 +2,7 @@
 <%= turbo_stream_from "room_#{@room.id}_user_#{@room.viewer.id}" %>
 
 <%= render @room %>
+
+<div class="nav">
+	<%= link_to 'Home', root_path %>
+</div>

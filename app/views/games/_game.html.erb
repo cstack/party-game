@@ -5,8 +5,8 @@
 		<%= form.submit "New Game" %>
 	<% end %>
 <% elsif game.all_movies_complete? %>
-	<h1>Vote for best picture!</h1>
-	<h3>Nominees:</h3>
+	<h2>Vote for best picture!</h2>
+	<p>Nominees:</p>
 	<% game.movies.each do |movie| %>
 		<%= render movie %>
 	<% end %>
@@ -15,14 +15,14 @@
 	<% else %>
 		<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
 			<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: true %>
-			<%= form.submit "VOTE!" %>
+			<%= form.submit "VOTE!", class: 'inline' %>
 		<% end %>
 	<% end %>
 <% elsif game.movie_for(game.room.viewer).waiting_for_input? %>
 	<%= render game.movie_for(game.room.viewer) %>
 	<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post do |form| %>
 		<%= form.text_field :value %>
-		<%= form.submit "Submit" %>
+		<%= form.submit "Submit", class: 'inline' %>
 	<% end %>
 <% else %>
 	<%= render game.movie_for(game.room.viewer) %>

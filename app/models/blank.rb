@@ -5,7 +5,7 @@ class Blank < ApplicationRecord
   	[
   		:genre1,
   		{
-	  		prompt: 'Pick a genre',
+	  		prompt: 'Pick a movie genre',
 	  		prefix: 'A(n)',
 	  		suffix: 'movie',
 	  	},

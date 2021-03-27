@@ -1,11 +1,14 @@
 <%= turbo_frame_tag "room_#{room.id}" do %>
 	<% if room.game.nil? %>
-		<h1>Waiting for users to join</h1>
-		<%= turbo_frame_tag "room_users" do %>
-			<% room.room_users.each do |room_user| %>
-				<%= render room_user %>
+		<h1>Lobby</h1>
+		<p>Start the game once everyone has joined</p>
+		<div class="users">
+			<%= turbo_frame_tag "room_users" do %>
+				<% room.room_users.each do |room_user| %>
+					<%= render room_user %>
+				<% end %>
 			<% end %>
-		<% end %>
+		</div>
 		<%= form_with url: "#{room.id}/start_game", method: :post do |form| %>
 			<%= form.submit "Start Game" %>
 		<% end %>

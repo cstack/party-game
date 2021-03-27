@@ -11,6 +11,14 @@ class Movie < ApplicationRecord
 		on_last_blank? && !waiting_for_input?
 	end
 
+	def filling_out_first_blank?
+		blanks.count == 1 && blanks.first.value.nil?
+	end
+
+	def partly_filled_out?
+		!complete? && !filling_out_first_blank?
+	end
+
 	def on_last_blank?
 		Blank.key_after(blanks.last.key).nil?
 	end
