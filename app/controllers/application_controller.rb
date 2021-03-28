@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 	before_action :set_debug
 	around_action :log_everything
 
-	DEBUG = false
+	DEBUG = true
 	
 	private
 
