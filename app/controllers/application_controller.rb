@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
 	before_action :current_user # make sure @current_user is set
 	before_action :set_debug
+	around_action :log_everything
+
+	DEBUG = false
 	
 	private
 
@@ -15,6 +18,28 @@ class ApplicationController < ActionController::Base
   end
 
   def set_debug
-  	@debug = false
+  	@debug = DEBUG
   end
+
+  def log_everything
+  	return unless DEBUG
+	  log_headers
+	  yield
+	ensure
+	  log_response
+	end
+
+	def log_headers
+	  http_envs = {}.tap do |envs|
+	    request.headers.each do |key, value|
+	      envs[key] = value if key.downcase.starts_with?('http')
+	    end
+	  end
+
+	  logger.info "DEBUG - Received #{request.method.inspect} to #{request.url.inspect} from #{request.remote_ip.inspect}. Processing with headers #{http_envs.inspect} and params #{params.inspect}"
+	end
+
+	def log_response
+	  logger.info "DEBUG - Responding with #{response.status.inspect} => #{response.body.inspect}"
+	end
 end
