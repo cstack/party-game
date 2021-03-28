@@ -9,8 +9,14 @@
 				<% end %>
 			<% end %>
 		</div>
-		<%= form_with url: "#{room.id}/start_game", method: :post do |form| %>
-			<%= form.submit "Start Game" %>
+		<% if @not_yet_joined %>
+			<%= form_with url: "#{room.id}/join", method: :post do |form| %>
+				<%= form.submit "Join" %>
+			<% end %>
+		<% else %>
+			<%= form_with url: "#{room.id}/start_game", method: :post do |form| %>
+				<%= form.submit "Start Game" %>
+			<% end %>
 		<% end %>
 	<% else %>
 		<%= render room.game %>

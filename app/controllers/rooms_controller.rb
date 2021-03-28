@@ -9,8 +9,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id]).from_perspective_of(current_user)
     room_user = RoomUser.find_or_initialize_by(user: current_user, room: @room)
     if room_user.new_record?
-      room_user.save
-      helpers.broadcast_user_joined_room(user: current_user, room: @room)
+      @not_yet_joined = true
     end
   end
 
@@ -30,6 +29,16 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
+  def join
+    @room = Room.find(params[:room_id])
+    room_user = RoomUser.find_or_initialize_by(user: current_user, room: @room)
+    if room_user.new_record?
+      room_user.save
+      helpers.broadcast_user_joined_room(user: current_user, room: @room)
+    end
+    redirect_to @room
+  end
+
   def test_broadcast
     @room = Room.find(params[:room_id])
     @room.from_perspective_of(current_user).broadcast_replace_to "room_#{@room.id}_user_#{current_user.id}"
@@ -38,16 +47,9 @@ class RoomsController < ApplicationController
   # POST /rooms or /rooms.json
   def create
     @room = Room.new
-
-    respond_to do |format|
-      if @room.save
-        format.html { redirect_to @room }
-        format.json { render :show, status: :created, location: @room }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
-    end
+    @room.save
+    room_user = RoomUser.find_or_create_by(user: current_user, room: @room)
+    redirect_to @room
   end
 
   # PATCH/PUT /rooms/1 or /rooms/1.json
