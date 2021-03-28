@@ -22,12 +22,13 @@ class ApplicationController < ActionController::Base
   end
 
   def log_everything
-  	return unless DEBUG
-	  log_headers
-	  yield
-	ensure
-	  log_response
-	end
+  	if DEBUG
+  		log_headers
+  		yield
+  	else
+  		yield
+  	end
+  end
 
 	def log_headers
 	  http_envs = {}.tap do |envs|
