@@ -5,3 +5,6 @@ heroku run rake db:migrate
 # Smoke Test
 heroku logs --tail
 heroku open
+
+# Debugging
+heroku run rails console

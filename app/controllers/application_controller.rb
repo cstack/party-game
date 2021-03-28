@@ -1,22 +1,17 @@
 class ApplicationController < ActionController::Base
-	before_action :set_current_user, only: %i[ show edit update destroy ]
+	before_action :current_user # make sure @current_user is set
 	before_action :set_debug
 	
 	private
 
 	def current_user
-		current_user_token = session[:current_user_token]
-    @_current_user ||= if current_user_token
-			User.find_or_create_by(token: current_user_token)
+    @current_user ||= if session[:current_user_token]
+			User.find_or_create_by(token: session[:current_user_token])
 		else
 			user = User.create
 			session[:current_user_token] = user.token
 			user
 		end
-  end
-
-  def set_current_user
-  	@current_user = current_user
   end
 
   def set_debug
