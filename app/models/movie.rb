@@ -3,6 +3,10 @@ class Movie < ApplicationRecord
 	has_many :votes
 	belongs_to :game
 
+	def template
+		Template.new(game.template)
+	end
+
 	def fill_in_the_blank(value)
 		blanks.last.update!(value: value)
 	end
@@ -20,7 +24,7 @@ class Movie < ApplicationRecord
 	end
 
 	def on_last_blank?
-		Blank.key_after(blanks.last.key).nil?
+		template.key_after(blanks.last.key).nil?
 	end
 
 	def waiting_for_input?
@@ -28,11 +32,11 @@ class Movie < ApplicationRecord
 	end
 
 	def next_key
-		Blank.key_after(blanks.last&.key)
+		template.key_after(blanks.last&.key)
 	end
 
 	def create_first_blank!
-		blanks << Blank.new(key: Blank.first_key)
+		blanks << Blank.new(key: template.first_blank_key)
 	end
 
 	def create_next_blank!

@@ -1,7 +1,7 @@
 <% if game.all_votes_collected? %>
 	<h1>Best Picture:</h1>
 	<%= render game.best_picture %>
-	<%= form_with url: "#{game.room.id}/start_game", method: :post do |form| %>
+	<%= form_with url: "#{game.room.id}/finish_game", method: :post do |form| %>
 		<%= form.submit "New Game" %>
 	<% end %>
 <% elsif game.all_movies_complete? %>

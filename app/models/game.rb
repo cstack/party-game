@@ -6,14 +6,18 @@ class Game < ApplicationRecord
 	has_many :users, through: :game_users
 	has_many :votes, through: :movies
 
-	VALID_STATUSES = ['waiting_for_players', 'started']
-
+	VALID_STATUSES = ['waiting_for_players', 'started', 'finished']
   validates :status, inclusion: { in: VALID_STATUSES }
-
 	after_initialize :set_default_status
-
 	def set_default_status
 		self.status ||= 'waiting_for_players'
+	end
+
+	VALID_TEMPLATES = ['movie', 'startup']
+  validates :template, inclusion: { in: VALID_TEMPLATES }
+	after_initialize :set_default_template
+	def set_default_template
+		self.status ||= 'movie'
 	end
 
 	def record_vote!(user:, movie:)

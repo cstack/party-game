@@ -24,8 +24,15 @@ class RoomsController < ApplicationController
 
   def start_game
     @room = Room.find(params[:room_id])
-    @room.new_game!
+    @room.new_game!(template: params[:template])
     helpers.broadcast_game_start(room: @room)
+    redirect_to @room
+  end
+
+  def finish_game
+    @room = Room.find(params[:room_id])
+    @room.finish_game!
+    helpers.broadcast_game_finish(room: @room)
     redirect_to @room
   end
 

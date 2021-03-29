@@ -94,6 +94,11 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     click_on "New Game"
     advance_time
 
-    expect(page).to have_content("Pick a movie genre")
+    expect(page).to have_content("Start the game once everyone has joined")
+
+    select "Startup", :from => "template"
+    click_on "Start Game"
+
+    expect(page).to have_content("I’m working on a super stealth startup. It’s like (existing company)")
   end
 end

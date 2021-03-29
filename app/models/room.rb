@@ -4,17 +4,27 @@ class Room < ApplicationRecord
 	has_many :users, through: :room_users
 
 	def game
-		games.last
+		games.where.not(status: 'finished').last
 	end
 
-	def new_game!
-		Game.create!(room: self, users: users, status: 'started')
+	def templates
+		Game::VALID_TEMPLATES.map do |key|
+			Template.new(key)
+		end
+	end
+
+	def new_game!(template:)
+		Game.create!(room: self, users: users, status: 'started', template: template)
 		users.each do |user|
 			game.users << user
 			movie = Movie.create!(game: game)
 			movie.create_first_blank!
 			MovieAssignment.create!(movie: movie, user: user, game: game)
 		end
+	end
+
+	def finish_game!
+		game.update!(status: 'finished')
 	end
 
 	attr_reader :viewer

@@ -16,6 +16,13 @@ module ApplicationHelper
 		end
 	end
 
+	def broadcast_game_finish(room:)
+		Rails.logger.info("DEBUG - broadcast_game_finish")
+		room.users.each do |user|
+			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
+		end
+	end
+
 	def broadcast_advance_turn(game:)
 		Rails.logger.info("DEBUG - broadcast_advance_turn")
 		game.users.each do |user|
