@@ -134,4 +134,10 @@ class Blank < ApplicationRecord
   def value_or_placeholder
   	value || "..."
   end
+
+  def position
+    TYPES.index do |key, definition|
+      self.key.to_sym == key
+    end
+  end
 end

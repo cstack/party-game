@@ -57,9 +57,9 @@ class Movie < ApplicationRecord
 
 	def blanks_to_render
 		if title.present?
-			blanks.where.not(key: 'title')
+			blanks.where.not(key: 'title').sort_by(&:position)
 		else
-			blanks
+			blanks.sort_by(&:position)
 		end
 	end
 end
