@@ -1,12 +1,12 @@
 <% if game.all_votes_collected? %>
 	<h1>Best Picture:</h1>
-	<%= render game.best_picture %>
+	<%= render game.winner %>
 	<%= form_with url: "#{game.room.id}/finish_game", method: :post do |form| %>
 		<%= form.submit "New Game" %>
 	<% end %>
-<% elsif game.all_movies_complete? %>
-	<h2>Vote for best picture!</h2>
-	<p>Nominees:</p>
+<% elsif game.all_stories_complete? %>
+	<h2><%= game.voting_title %></h2>
+	<p>Choices:</p>
 	<% game.movies.each do |movie| %>
 		<%= render movie %>
 	<% end %>

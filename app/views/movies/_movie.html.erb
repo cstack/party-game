@@ -1,5 +1,5 @@
 <% if movie.partly_filled_out? %>
-	<p>The movie so far...</p>
+	<p><%= movie.partly_filled_out_message %></p>
 <% end %>
 <div class="movie">
 	<% if movie.complete? %>

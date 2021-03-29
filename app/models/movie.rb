@@ -23,6 +23,10 @@ class Movie < ApplicationRecord
 		!complete? && !filling_out_first_blank?
 	end
 
+	def partly_filled_out_message
+		template.partly_filled_out_message
+	end
+
 	def on_last_blank?
 		template.key_after(blanks.last.key).nil?
 	end

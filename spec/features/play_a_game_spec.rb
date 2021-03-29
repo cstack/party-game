@@ -99,6 +99,6 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     select "Startup", :from => "template"
     click_on "Start Game"
 
-    expect(page).to have_content("I’m working on a super stealth startup. It’s like (existing company)")
+    expect(page).to have_content("Pick a tech company")
   end
 end

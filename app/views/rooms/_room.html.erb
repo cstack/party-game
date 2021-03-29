@@ -19,6 +19,8 @@
 				<%= form.submit "Start Game", class: :inline %>
 			<% end %>
 		<% end %>
+	<% elsif !room.game.includes_player?(room.viewer) %>
+		<p>The game is already started. You'll have to wait for the next one.</p>
 	<% else %>
 		<%= render room.game %>
 	<% end %>

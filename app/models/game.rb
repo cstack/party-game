@@ -20,6 +20,10 @@ class Game < ApplicationRecord
 		self.status ||= 'movie'
 	end
 
+	def template_object
+		Template.new(template)
+	end
+
 	def record_vote!(user:, movie:)
 		Vote.create!(user: user, movie: movie)
 		if all_votes_collected?
@@ -47,7 +51,7 @@ class Game < ApplicationRecord
 		end
 	end
 
-	def all_movies_complete?
+	def all_stories_complete?
 		movies.all?(&:complete?)
 	end
 
@@ -64,7 +68,15 @@ class Game < ApplicationRecord
 		movie_assignments.find_by(user: user).movie
 	end
 
-	def best_picture
+	def winner
 		movies.max_by(&:num_votes)
+	end
+
+	def includes_player?(user)
+		users.include?(user)
+	end
+
+	def voting_title
+		template_object.voting_title
 	end
 end

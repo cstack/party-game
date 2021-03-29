@@ -13,6 +13,24 @@ class Template
 		end
 	end
 
+	def partly_filled_out_message
+		case key
+		when 'movie'
+			'The movie so far...'
+		when 'startup'
+			'The startup so far...'
+		end
+	end
+
+	def voting_title
+		case key
+		when 'movie'
+			'Vote for best picture!'
+		when 'startup'
+			'Vote for best startup!'
+		end
+	end
+
 	def key_after(key)
 		definition.each_with_index do |(key_in_config, config), index|
 			if key.to_sym == key_in_config
@@ -135,8 +153,8 @@ class Template
 	  	[
 	      :company,
 	      {
+	      	prompt: 'Pick a tech company',
 	        prefix: 'I’m working on a super stealth startup. It’s like',
-	        placeholder: '(existing company)',
 	        suffix: '',
 	      },
 	    ],
