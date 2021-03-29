@@ -72,7 +72,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
       "They meet a(n) P1V5 played by P2V6 . "\
       "The protagonist must P1V7 , but there is a problem: P2V8 . "\
       "To makes things even worse, P1V9 . "\
-      "But by the end of the moive, P2V10 . "\
+      "But by the end of the movie, P2V10 . "\
       "Now what should the movie be called?"
     if expected_movie_text != movie_text
       puts movie_text

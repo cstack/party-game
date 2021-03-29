@@ -70,7 +70,7 @@ class Blank < ApplicationRecord
     [
       :resolution,
       {
-        prefix: 'But by the end of the moive,',
+        prefix: 'But by the end of the movie,',
         suffix: '.',
       },
     ],
