@@ -1,5 +1,5 @@
 <% if game.all_votes_collected? %>
-	<h1>Best Picture:</h1>
+	<h1>Winner:</h1>
 	<%= render game.winner %>
 	<%= form_with url: "#{game.room.id}/finish_game", method: :post do |form| %>
 		<%= form.submit "New Game" %>
@@ -16,6 +16,11 @@
 		<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
 			<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: true %>
 			<%= form.submit "VOTE!", class: 'inline' %>
+		<% end %>
+	<% end %>
+	<%= turbo_frame_tag "player_statuses" do %>
+		<% game.user_list.each do |user| %>
+			<%= render partial: "player_status", locals: { user: user, game: game } %>
 		<% end %>
 	<% end %>
 <% else %>

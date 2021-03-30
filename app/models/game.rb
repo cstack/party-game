@@ -59,6 +59,10 @@ class Game < ApplicationRecord
 		votes.find_by(user: user).present?
 	end
 
+	def waiting_for_vote?(user)
+		all_stories_complete? && !has_vote?(user)
+	end
+
 	def all_votes_collected?
 		votes.map(&:user_id).uniq.sort == users.map(&:id).uniq.sort
 	end
@@ -85,7 +89,7 @@ class Game < ApplicationRecord
 	end
 
 	def status_for_user(user)
-		if movie_for(user).waiting_for_input?
+		if movie_for(user).waiting_for_input? || waiting_for_vote?(user)
 			"💭"
 		else
 			"✅"
