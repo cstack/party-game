@@ -13,7 +13,7 @@ class Game < ApplicationRecord
 		self.status ||= 'waiting_for_players'
 	end
 
-	VALID_TEMPLATES = ['movie', 'startup']
+	VALID_TEMPLATES = ['movie', 'startup', 'real_estate']
   validates :template, inclusion: { in: VALID_TEMPLATES }
 	after_initialize :set_default_template
 	def set_default_template

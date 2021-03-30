@@ -10,6 +10,8 @@ class Template
 			'Movie'
 		when 'startup'
 			'Startup'
+		when 'real_estate'
+			'Real Estate'
 		end
 	end
 
@@ -19,6 +21,8 @@ class Template
 			'The movie so far...'
 		when 'startup'
 			'The startup so far...'
+		when 'real_estate'
+			'The listing so far...'
 		end
 	end
 
@@ -28,6 +32,19 @@ class Template
 			'Vote for best picture!'
 		when 'startup'
 			'Vote for best startup!'
+		when 'real_estate'
+			'Vote for best listing!'
+		end
+	end
+
+	def definition
+		case key
+		when 'movie'
+			MoviePitch::BLANKS
+		when 'startup'
+			Startup::BLANKS
+		when 'real_estate'
+			RealEstate::BLANKS
 		end
 	end
 
@@ -38,15 +55,6 @@ class Template
 			end
 		end
 		return nil
-	end
-
-	def definition
-		case key
-		when 'movie'
-			MoviePitch::BLANKS
-		when 'startup'
-			Startup::BLANKS
-		end
 	end
 
 	def config_for(blank_key)
@@ -198,6 +206,74 @@ class Template
 	      {
 	        prefix: 'The startup is called',
 	        suffix: '.',
+	      },
+	    ],
+	  ]
+	end
+
+	module RealEstate
+		BLANKS = [
+	  	[
+	      :location,
+	      {
+	      	prefix: 'Located in',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :type,
+	      {
+	      	prefix: ', this',
+	        suffix: 'property',
+	      },
+	    ],
+	    [
+	      :scenery,
+	      {
+	      	prefix: 'surrounded by',
+	        suffix: 'is ready for its next owner!',
+	      },
+	    ],
+	    [
+	      :amenity,
+	      {
+	      	prefix: 'Enjoy the recently updated',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :material,
+	      {
+	      	prefix: 'made from real',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :feature,
+	      {
+	      	prefix: 'Also notice the stunning',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :destination,
+	      {
+	      	prefix: 'Just a short walk to',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :audience,
+	      {
+	      	prefix: ', this is an ideal property for',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :title,
+	      {
+	      	prefix: 'Now make an eye-catching title for this listing:',
+	        suffix: '',
 	      },
 	    ],
 	  ]
