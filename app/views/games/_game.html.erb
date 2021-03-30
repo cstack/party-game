@@ -6,7 +6,7 @@
 	<% end %>
 <% elsif game.all_stories_complete? %>
 	<h2><%= game.voting_title %></h2>
-	<p>Choices:</p>
+	<p>Take turns reading out loud. Read the one you named.</p>
 	<% game.movies.each do |movie| %>
 		<%= render movie %>
 	<% end %>
