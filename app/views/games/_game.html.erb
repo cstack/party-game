@@ -18,13 +18,19 @@
 			<%= form.submit "VOTE!", class: 'inline' %>
 		<% end %>
 	<% end %>
-<% elsif game.movie_for(game.room.viewer).waiting_for_input? %>
-	<%= render game.movie_for(game.room.viewer) %>
-	<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post do |form| %>
-		<%= form.text_field :value %>
-		<%= form.submit "Submit", class: 'inline' %>
-	<% end %>
 <% else %>
 	<%= render game.movie_for(game.room.viewer) %>
-	<p>Waiting for other players...</p>
+	<%if game.movie_for(game.room.viewer).waiting_for_input? %>
+		<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post do |form| %>
+			<%= form.text_field :value %>
+			<%= form.submit "Submit", class: 'inline' %>
+		<% end %>
+	<% else %>
+		<p>Waiting for other players...</p>
+	<% end %>
+	<%= turbo_frame_tag "player_statuses" do %>
+		<% game.user_list.each do |user| %>
+			<%= render partial: "player_status", locals: { user: user, game: game } %>
+		<% end %>
+	<% end %>
 <% end %>

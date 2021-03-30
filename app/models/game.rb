@@ -79,4 +79,16 @@ class Game < ApplicationRecord
 	def voting_title
 		template_object.voting_title
 	end
+
+	def user_list
+		users.uniq.sort_by(&:id)
+	end
+
+	def status_for_user(user)
+		if movie_for(user).waiting_for_input?
+			"💭"
+		else
+			"✅"
+		end
+	end
 end

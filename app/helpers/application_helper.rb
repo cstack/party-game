@@ -30,6 +30,13 @@ module ApplicationHelper
 		end
 	end
 
+	def broadcast_answer_submitted(game:, user:)
+		Turbo::StreamsChannel.broadcast_replace_to game.room,
+			target: "player_status_#{user.id}_#{game.id}",
+			partial: "application/player_status",
+			locals: { user: user, game: game }
+	end
+
 	def broadcast_all_votes_in(game:)
 		Rails.logger.info("DEBUG - broadcast_all_votes_in")
 		game.users.each do |user|

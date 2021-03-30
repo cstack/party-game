@@ -23,6 +23,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:game_id])
     movie = game.movie_for(current_user)
     movie.fill_in_the_blank(params[:value])
+    helpers.broadcast_answer_submitted(game: game, user: current_user)
     if game.ready_to_advance_turn?
       game.advance_turn!
       helpers.broadcast_advance_turn(game: game)
