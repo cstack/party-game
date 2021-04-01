@@ -15,6 +15,7 @@
 			<% end %>
 		<% else %>
 			<%= form_with url: "#{room.id}/start_game", method: :post do |form| %>
+				<label>Story Type</label>
 				<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
 				<%= form.submit "Start Game", class: :inline %>
 			<% end %>
