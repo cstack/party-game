@@ -2,6 +2,11 @@ class Movie < ApplicationRecord
 	has_many :blanks
 	has_many :votes
 	belongs_to :game
+	has_one :movie_assignment
+
+	def user
+		movie_assignment.user
+	end
 
 	def template
 		Template.new(game.template)
