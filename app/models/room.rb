@@ -8,7 +8,7 @@ class Room < ApplicationRecord
 	end
 
 	def templates
-		Game::VALID_TEMPLATES.map do |key|
+		Template::KEYS.map do |key|
 			Template.new(key)
 		end
 	end

@@ -4,6 +4,13 @@ class Template
 		@key = key
 	end
 
+	KEYS = [
+		'movie',
+		'startup',
+		'real_estate',
+		'superhero'
+	]
+
 	def name
 		case key
 		when 'movie'
@@ -12,6 +19,8 @@ class Template
 			'Startup'
 		when 'real_estate'
 			'Real Estate'
+		when 'superhero'
+			'Superhero'
 		end
 	end
 
@@ -23,6 +32,8 @@ class Template
 			'The startup so far...'
 		when 'real_estate'
 			'The listing so far...'
+		when 'superhero'
+			'Our superhero so far...'
 		end
 	end
 
@@ -34,6 +45,8 @@ class Template
 			'Vote for best startup!'
 		when 'real_estate'
 			'Vote for best listing!'
+		when 'superhero'
+			'Vote for best superhero!'
 		end
 	end
 
@@ -45,6 +58,8 @@ class Template
 			Startup::BLANKS
 		when 'real_estate'
 			RealEstate::BLANKS
+		when 'superhero'
+			Superhero::BLANKS
 		end
 	end
 
@@ -274,6 +289,67 @@ class Template
 	      {
 	      	prefix: 'Now make an eye-catching title for this listing:',
 	        suffix: '',
+	      },
+	    ],
+	  ]
+	end
+
+	module Superhero
+		BLANKS = [
+	  	[
+	      :power,
+	      {
+	        prefix: 'This hero has the power to',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :job,
+	      {
+	      	prefix: 'They used to be a(n)',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :event,
+	      {
+	      	prefix: ', but one fateful day,',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :goal,
+	      {
+	      	prefix: 'From then on, this hero vowed to',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :villain,
+	      {
+	      	prefix: 'Their arch nemesis is',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :villain_action,
+	      {
+	      	prefix: ', who',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :weakness,
+	      {
+	      	prefix: "The hero's one weakness is",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :title,
+	      {
+	      	prefix: 'And they go by the name "',
+	        suffix: '"',
 	      },
 	    ],
 	  ]
