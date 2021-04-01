@@ -7,6 +7,10 @@ class Room < ApplicationRecord
 		games.where.not(status: 'finished').last
 	end
 
+	def previous_games
+		games.where(status: 'finished')
+	end
+
 	def templates
 		Template::KEYS.map do |key|
 			Template.new(key)
