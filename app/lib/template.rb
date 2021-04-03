@@ -176,7 +176,7 @@ class Template
 	  	[
 	      :company,
 	      {
-	      	prompt: 'Pick a tech company',
+	      	prompt: 'Pick a real-life tech company',
 	        prefix: 'I’m working on a super stealth startup. It’s like',
 	        suffix: '',
 	      },
@@ -185,7 +185,7 @@ class Template
 	      :audience,
 	      {
 	        prefix: 'but for',
-	        suffix: '',
+	        suffix: '.',
 	      },
 	    ],
 	    [
