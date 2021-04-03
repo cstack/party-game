@@ -18,7 +18,7 @@ class Template
 		when 'startup'
 			'Startup'
 		when 'real_estate'
-			'Real Estate'
+			'Real Estate Listing'
 		when 'superhero'
 			'Superhero'
 		end
@@ -231,6 +231,7 @@ class Template
 	  	[
 	      :location,
 	      {
+	      	prompt: 'Choose a location',
 	      	prefix: 'Located in',
 	        suffix: '',
 	      },
@@ -239,14 +240,14 @@ class Template
 	      :type,
 	      {
 	      	prefix: ', this',
-	        suffix: 'property',
+	        suffix: 'property is ready for its next owner!',
 	      },
 	    ],
 	    [
 	      :scenery,
 	      {
-	      	prefix: 'surrounded by',
-	        suffix: 'is ready for its next owner!',
+	      	prefix: 'The lot is surrounded by',
+	        suffix: '.',
 	      },
 	    ],
 	    [
