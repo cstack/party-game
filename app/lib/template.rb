@@ -246,14 +246,14 @@ class Template
 	    [
 	      :scenery,
 	      {
-	      	prefix: 'The lot is surrounded by',
+	      	prefix: 'Outside, enjoy views of',
 	        suffix: '.',
 	      },
 	    ],
 	    [
 	      :amenity,
 	      {
-	      	prefix: 'Enjoy the recently updated',
+	      	prefix: 'Inside, enjoy the recently updated',
 	        suffix: '',
 	      },
 	    ],
