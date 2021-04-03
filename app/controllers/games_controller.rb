@@ -35,7 +35,10 @@ class GamesController < ApplicationController
     game = Game.find(params[:game_id])
     movie = Movie.find(params[:movie_id])
     game.record_vote!(user: current_user, movie: movie)
-    helpers.broadcast_all_votes_in(game: game)
+    helpers.broadcast_answer_submitted(game: game, user: current_user)
+    if game.all_votes_collected?
+      helpers.broadcast_all_votes_in(game: game)
+    end
     redirect_to game.room
   end
 
