@@ -23,7 +23,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:game_id])
     movie = game.movie_for(current_user)
     movie.fill_in_the_blank(params[:value])
-    helpers.broadcast_answer_submitted(game: game, user: current_user)
+    helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.ready_to_advance_turn?
       game.advance_turn!
       helpers.broadcast_advance_turn(game: game)
@@ -31,11 +31,19 @@ class GamesController < ApplicationController
     redirect_to game.room
   end
 
+  def change_answer
+    game = Game.find(params[:game_id])
+    movie = game.movie_for(current_user)
+    movie.undo_fill_in_the_blank!
+    helpers.broadcast_player_status_changed(game: game, user: current_user)
+    redirect_to game.room
+  end
+
   def vote
     game = Game.find(params[:game_id])
     movie = Movie.find(params[:movie_id])
     game.record_vote!(user: current_user, movie: movie)
-    helpers.broadcast_answer_submitted(game: game, user: current_user)
+    helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.all_votes_collected?
       helpers.broadcast_all_votes_in(game: game)
     end

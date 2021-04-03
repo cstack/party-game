@@ -16,6 +16,10 @@ class Movie < ApplicationRecord
 		blanks.last.update!(value: value)
 	end
 
+	def undo_fill_in_the_blank!
+		blanks.last.update!(value: nil)
+	end
+
 	def complete?
 		on_last_blank? && !waiting_for_input?
 	end

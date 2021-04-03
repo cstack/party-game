@@ -30,7 +30,7 @@ module ApplicationHelper
 		end
 	end
 
-	def broadcast_answer_submitted(game:, user:)
+	def broadcast_player_status_changed(game:, user:)
 		Turbo::StreamsChannel.broadcast_replace_to game.room,
 			target: "player_status_#{user.id}_#{game.id}",
 			partial: "application/player_status",

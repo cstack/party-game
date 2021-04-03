@@ -3,15 +3,6 @@
 
 <%= render @room %>
 
-<% if @room.previous_games.present? %>
-	<p>Previous Games</p>
-	<ul class='previous_games'>
-		<% @room.previous_games.each_with_index do |game, i| %>
-			<li><%= link_to "Game #{i+1}", game_path(game) %></li>
-		<% end %>	
-	</ul>
-<% end %>
-
 <div class="nav">
 	<%= link_to 'Home', root_path %>
 </div>

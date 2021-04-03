@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :movies
   resources :games do
     post 'fill_in_the_blank', to: 'games#fill_in_the_blank'
+    get 'change_answer', to: 'games#change_answer'
     post 'vote', to: 'games#vote'
   end
 	root 'welcome#index'

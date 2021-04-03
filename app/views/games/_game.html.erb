@@ -31,6 +31,7 @@
 			<%= form.submit "Submit", class: 'inline' %>
 		<% end %>
 	<% else %>
+		<%= link_to 'Change Answer', "/games/#{game.id}/change_answer", class: 'secondary-action' %>
 		<p>Waiting for other players...</p>
 	<% end %>
 	<%= turbo_frame_tag "player_statuses" do %>
