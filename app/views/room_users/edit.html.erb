@@ -1,5 +1,3 @@
-<h1>Editing Room User</h1>
-
 <%= turbo_frame_tag "room_user_#{@room_user.id}", target: "_top" do %>
 	<%= form_with(model: [ @room_user.room, @room_user ]) do |form| %>
 		<div class="field">
@@ -8,7 +6,3 @@
 		</div>
 	<% end %>
 <% end %>
-<%= render 'form', user: @room_user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>

@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "room_#{room.id}" do %>
+<%= turbo_frame_tag "room_#{room.id}", target: "_top" do %>
 	<% if room.game.nil? %>
 		<h1>Lobby</h1>
 		<p>Start the game once everyone has joined</p>
