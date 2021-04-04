@@ -3,6 +3,21 @@ class Room < ApplicationRecord
 	has_many :room_users
 	has_many :users, through: :room_users
 
+	after_initialize :set_token
+	def set_token
+		self.token ||= SecureRandom.hex(5)
+	end
+
+	def to_param
+		token
+	end
+
+	class << self
+		def find(id)
+			find_by(token: id) || find_by(id: id)
+		end
+	end
+
 	def game
 		games.where.not(status: 'finished').last
 	end
