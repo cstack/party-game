@@ -28,7 +28,7 @@ class GamesController < ApplicationController
       game.advance_turn!
       helpers.broadcast_advance_turn(game: game)
     end
-    redirect_to game.room
+    render game.room.from_perspective_of(current_user)
   end
 
   def change_answer
@@ -36,7 +36,7 @@ class GamesController < ApplicationController
     movie = game.movie_for(current_user)
     movie.undo_fill_in_the_blank!
     helpers.broadcast_player_status_changed(game: game, user: current_user)
-    redirect_to game.room
+    render game.room.from_perspective_of(current_user)
   end
 
   def vote
