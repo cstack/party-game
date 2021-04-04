@@ -89,7 +89,7 @@ class Game < ApplicationRecord
 
 	def status_for_user(user)
 		if movie_for(user).waiting_for_input? || waiting_for_vote?(user)
-			"💭"
+			"🤔"
 		else
 			"✅"
 		end

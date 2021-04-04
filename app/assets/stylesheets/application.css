@@ -22,7 +22,8 @@
 body {
   background-color: #fff;
   color: #333;
-  margin: 10px;
+  margin: 10px auto;
+  max-width: 600px;
 }
 
 p {
