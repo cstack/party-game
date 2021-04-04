@@ -7,7 +7,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
 
   def advance_time
     print "."
-    sleep 0.2
+    sleep 0.3
   end
 
   def all_players_fill_in_an_answer(suffix)
@@ -99,6 +99,6 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     select "Startup", :from => "template"
     click_on "Start Game"
 
-    expect(page).to have_content("Pick a tech company")
+    expect(page).to have_content("Pick a real-life tech company")
   end
 end
