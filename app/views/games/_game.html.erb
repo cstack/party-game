@@ -14,7 +14,7 @@
 		<p>Waiting for other players to vote...</p>
 	<% else %>
 		<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
-			<%= form.collection_select :movie_id, game.movies, :id, :title, include_blank: '--Choose--' %>
+			<%= form.collection_select :movie_id, game.movies, :id, :title, { include_blank: "--Choose--" }, { required: true } %>
 			<%= form.submit "VOTE!", class: 'inline' %>
 		<% end %>
 	<% end %>
