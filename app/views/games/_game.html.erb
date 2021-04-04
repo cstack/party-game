@@ -27,7 +27,7 @@
 	<%= render game.movie_for(game.room.viewer) %>
 	<%if game.movie_for(game.room.viewer).waiting_for_input? %>
 		<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post, html: { autocomplete: "off" } do |form| %>
-			<%= form.text_field :value %>
+			<%= form.text_field :value, required: true %>
 			<%= form.submit "Submit", class: 'inline' %>
 		<% end %>
 	<% else %>
