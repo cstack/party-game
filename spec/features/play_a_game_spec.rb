@@ -7,7 +7,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
 
   def advance_time
     print "."
-    sleep 0.4
+    sleep 0.3
   end
 
   def all_players_fill_in_an_answer(suffix)
@@ -56,10 +56,6 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     click_on "Start Game"
     fill_in "value", with: "P1V1"
     click_on "Submit"
-    advance_time
-
-    click_on "Change Answer"
-    advance_time
 
     all_players_fill_in_an_answer("V1")
     all_players_fill_in_an_answer("V2")
