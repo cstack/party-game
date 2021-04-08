@@ -28,7 +28,8 @@ class GamesController < ApplicationController
       game.advance_turn!
       helpers.broadcast_advance_turn(game: game)
     end
-    redirect_to game.room
+    room = game.room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   def change_answer
@@ -36,7 +37,8 @@ class GamesController < ApplicationController
     movie = game.movie_for(current_user)
     movie.undo_fill_in_the_blank!
     helpers.broadcast_player_status_changed(game: game, user: current_user)
-    redirect_to game.room
+    room = game.room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   def vote
@@ -47,7 +49,8 @@ class GamesController < ApplicationController
     if game.all_votes_collected?
       helpers.broadcast_all_votes_in(game: game)
     end
-    redirect_to game.room
+    room = game.room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   # POST /games or /games.json
