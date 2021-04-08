@@ -22,8 +22,9 @@
 body {
   background-color: #fff;
   color: #333;
-  margin: 10px auto;
+  margin: 0 auto;
   max-width: 600px;
+  padding: 10px;
 }
 
 p {
