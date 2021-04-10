@@ -7,102 +7,107 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
 
   def advance_time
     print "."
-    sleep 0.4
+    # sleep 0.4
   end
 
-  def all_players_fill_in_an_answer(suffix)
-    fill_in "value", with: "P1#{suffix}"
-    click_on "Submit"
-
-    Capybara.using_session("player2") do
-      fill_in "value", with: "P2#{suffix}"
-      click_on "Submit"
-    end
-    advance_time
+  def wait_for_turbo_to_load
+    sleep 0.5
   end
 
-  def movie_text
-    find('.movie').text
+  def all_players_fill_in_an_answer(suffix, user1, user2)
+    print "."
+    expect(user1).to have_css('input#value')
+    user1.fill_in "value", with: "P1#{suffix}"
+    user1.click_on "Submit"
+
+    # Capybara.using_session("player2") do
+      expect(user2).to have_css('input#value')
+      user2.fill_in "value", with: "P2#{suffix}"
+      user2.click_on "Submit"
+    # end
   end
 
   scenario "Play A Game" do
-    visit "/"
-    advance_time
+    user1 = Capybara::Session.new(:selenium_chrome_headless)
+    user2 = Capybara::Session.new(:selenium_chrome_headless)
 
-    click_on "Edit Name"
-    fill_in "user_name", with: 'user1'
-    click_button "Update"
-    advance_time
-    expect(find('.users').text).to eq('user1 (Edit Name)')
+    user1.visit "#{page.server_url}/"
+    wait_for_turbo_to_load
 
-    click_on "Create a Room"
-    advance_time
+    user1.click_on "Edit Name"
+    user1.fill_in "user_name", with: 'user1'
+    user1.click_button "Update"
+    expect(user1.find('.users')).to have_content('user1 (Edit Name)')
 
-    room_path = current_path
+    user1.click_on "Create a Room"
+    expect(user1).to have_content("Lobby")
 
-    Capybara.using_session("player2") do
-      visit room_path
-      click_on "Join"
-      advance_time
-      click_on "Edit Name"
-      fill_in "room_user_name", with: 'user2'
-      click_button "Save"
-      advance_time
-      expect(all('.users p').map(&:text)).to eq(["user1", "user2 (Edit Name)"])
-    end
+    room_path = user1.current_path
 
-    expect(all('.users p').map(&:text)).to eq(["user1 (Edit Name)", "user2"])
+    # Capybara.using_session("player2") do
+      user2.visit "#{page.server_url}#{room_path}"
+      wait_for_turbo_to_load
+      user2.click_on "Join"
+      user2.click_on "Edit Name"
+      user2.fill_in "room_user_name", with: 'user2'
+      user2.click_button "Save"
+      expect(user2).to have_content("user1\nuser2 (Edit Name)")
+    # end
 
-    click_on "Start Game"
-    fill_in "value", with: "P1V1"
-    click_on "Submit"
-    advance_time
+    expect(user1).to have_content("user1 (Edit Name)\nuser2")
 
-    click_on "Change Answer"
-    advance_time
+    user1.click_on "Start Game"
+    # wait_for_turbo_to_load
+    expect(user2).to have_css('input#value')
+    user1.fill_in "value", with: "P1V1"
+    user1.click_on "Submit"
+    expect(user1).to have_content("Change Answer")
+    user1.click_on "Change Answer"
 
-    all_players_fill_in_an_answer("V1")
-    all_players_fill_in_an_answer("V2")
-    all_players_fill_in_an_answer("V3")
-    all_players_fill_in_an_answer("V4")
-    all_players_fill_in_an_answer("V5")
-    all_players_fill_in_an_answer("V6")
-    all_players_fill_in_an_answer("V7")
-    all_players_fill_in_an_answer("V8")
-    all_players_fill_in_an_answer("V9")
-    all_players_fill_in_an_answer("V10")
+    all_players_fill_in_an_answer("V1", user1, user2)
+    all_players_fill_in_an_answer("V2", user1, user2)
+    all_players_fill_in_an_answer("V3", user1, user2)
+    all_players_fill_in_an_answer("V4", user1, user2)
+    all_players_fill_in_an_answer("V5", user1, user2)
+    all_players_fill_in_an_answer("V6", user1, user2)
+    all_players_fill_in_an_answer("V7", user1, user2)
+    all_players_fill_in_an_answer("V8", user1, user2)
+    all_players_fill_in_an_answer("V9", user1, user2)
+    all_players_fill_in_an_answer("V10", user1, user2)
 
+    expect(user1).to have_css('input#value')
     expected_movie_text = "A(n) P1V1 movie starring P2V2 as a(n) P1V3 in P2V4 . "\
       "They meet a(n) P1V5 played by P2V6 . "\
       "The protagonist must P1V7 , but there is a problem: P2V8 . "\
       "To makes things even worse, P1V9 . "\
       "But by the end of the movie, P2V10 . "\
       "Now what should the movie be called?"
-    if expected_movie_text != movie_text
+    if expected_movie_text != user1.find('.movie').text
       puts movie_text
     end
-    expect(movie_text).to eq(expected_movie_text)
+    expect(user1.find('.movie').text).to eq(expected_movie_text)
   
-    all_players_fill_in_an_answer("Title")
+    all_players_fill_in_an_answer("Title", user1, user2)
 
-    select "P1Title", :from => "movie_id"
-    click_on "VOTE!"
-    Capybara.using_session("player2") do
-      select "P1Title", :from => "movie_id"
-      click_on "VOTE!"
-    end
-    advance_time
+    expect(user1).to have_css("input[value='VOTE!']")
+    user1.select "P1Title", :from => "movie_id"
+    user1.click_on "VOTE!"
 
-    expect(page).to have_content("P1Title")
+    expect(user2).to have_css("input[value='VOTE!']")
+    user2.select "P1Title", :from => "movie_id"
+    user2.click_on "VOTE!"
+    expect(user2).to have_content("Winner")
 
-    click_on "New Game"
-    advance_time
+    expect(user1).to have_content("Winner")
+    expect(user1).to have_content("P1Title")
 
-    expect(page).to have_content("Start the game once everyone has joined")
+    user1.click_on "New Game"
 
-    select "Startup", :from => "template"
-    click_on "Start Game"
+    expect(user1).to have_content("Start the game once everyone has joined")
 
-    expect(page).to have_content("Pick a real-life tech company")
+    user1.select "Startup", :from => "template"
+    user1.click_on "Start Game"
+
+    expect(user1).to have_content("Pick a real-life tech company")
   end
 end

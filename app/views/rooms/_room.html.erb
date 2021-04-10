@@ -10,11 +10,11 @@
 			<% end %>
 		</div>
 		<% if @not_yet_joined %>
-			<%= form_with url: "#{room.id}/join", method: :post do |form| %>
+			<%= form_with url: "/rooms/#{room.id}/join", method: :post do |form| %>
 				<%= form.submit "Join" %>
 			<% end %>
 		<% else %>
-			<%= form_with url: "#{room.id}/start_game", method: :post do |form| %>
+			<%= form_with url: "/rooms/#{room.id}/start_game", method: :post do |form| %>
 				<label>Story Type</label>
 				<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
 				<%= form.submit "Start Game", class: :inline %>

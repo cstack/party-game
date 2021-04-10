@@ -47,7 +47,7 @@ class GamesController < ApplicationController
     game.record_vote!(user: current_user, movie: movie)
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.all_votes_collected?
-      helpers.broadcast_all_votes_in(game: game)
+      helpers.broadcast_all_votes_in(game: game, current_user: current_user)
     end
     room = game.room.from_perspective_of(current_user)
     render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })

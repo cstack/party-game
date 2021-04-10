@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
 
 	def current_user
     @current_user ||= if session[:current_user_token]
-			User.find_or_create_by(token: session[:current_user_token])
+			user = User.find_or_create_by(token: session[:current_user_token])
+			Rails.logger.info "DEBUG - User #{user.id}"
+			user
 		else
 			user = User.create
 			session[:current_user_token] = user.token

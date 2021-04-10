@@ -1,7 +1,7 @@
 <% if game.all_votes_collected? %>
 	<h1>Winner:</h1>
 	<%= render game.winner %>
-	<%= form_with url: "#{game.room.id}/finish_game", method: :post do |form| %>
+	<%= form_with url: "/rooms/#{game.room.id}/finish_game", method: :post do |form| %>
 		<%= form.submit "New Game" %>
 	<% end %>
 <% elsif game.all_stories_complete? %>

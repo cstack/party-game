@@ -25,15 +25,17 @@ class RoomsController < ApplicationController
   def start_game
     @room = Room.find(params[:room_id])
     @room.new_game!(template: params[:template])
-    helpers.broadcast_game_start(room: @room)
-    redirect_to @room
+    helpers.broadcast_game_start(room: @room, current_user: current_user)
+    room = @room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   def finish_game
     @room = Room.find(params[:room_id])
     @room.finish_game!
     helpers.broadcast_game_finish(room: @room)
-    redirect_to @room
+    room = @room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   def join
@@ -43,7 +45,8 @@ class RoomsController < ApplicationController
       room_user.save
       helpers.broadcast_user_joined_room(user: current_user, room: @room)
     end
-    redirect_to @room
+    room = @room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
   def test_broadcast

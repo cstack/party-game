@@ -9,10 +9,15 @@ module ApplicationHelper
 		room_user.broadcast_replace_to room_user.room
 	end
 
-	def broadcast_game_start(room:)
+	def broadcast_game_start(room:, current_user:)
 		Rails.logger.info("DEBUG - broadcast_game_start")
 		room.users.each do |user|
+			next if user == current_user
 			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
+			# Turbo::StreamsChannel.broadcast_replace_to "room_#{room.id}_user_#{user.id}",
+			# 	target: "room_#{room.id}",
+			# 	partial: "rooms/foo",
+			# 	locals: { room: room }
 		end
 	end
 
@@ -37,9 +42,10 @@ module ApplicationHelper
 			locals: { user: user, game: game }
 	end
 
-	def broadcast_all_votes_in(game:)
+	def broadcast_all_votes_in(game:, current_user:)
 		Rails.logger.info("DEBUG - broadcast_all_votes_in")
 		game.users.each do |user|
+			next if user == current_user
 			game.room.from_perspective_of(user).broadcast_replace_to "room_#{game.room.id}_user_#{user.id}"
 		end
 	end
