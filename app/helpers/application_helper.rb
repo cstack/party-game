@@ -14,10 +14,6 @@ module ApplicationHelper
 		room.users.each do |user|
 			next if user == current_user
 			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
-			# Turbo::StreamsChannel.broadcast_replace_to "room_#{room.id}_user_#{user.id}",
-			# 	target: "room_#{room.id}",
-			# 	partial: "rooms/foo",
-			# 	locals: { room: room }
 		end
 	end
 
