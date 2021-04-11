@@ -1,33 +1,6 @@
 <%= turbo_frame_tag "room_#{room.id}", target: "_top" do %>
 	<% if room.game.nil? %>
-		<h1>Lobby</h1>
-		<p>Start the game once everyone has joined</p>
-		<div class="users">
-			<%= turbo_frame_tag "room_users" do %>
-				<% room.room_users.each do |room_user| %>
-					<%= render room_user %>
-				<% end %>
-			<% end %>
-		</div>
-		<% if @not_yet_joined %>
-			<%= form_with url: "/rooms/#{room.id}/join", method: :post do |form| %>
-				<%= form.submit "Join" %>
-			<% end %>
-		<% else %>
-			<%= form_with url: "/rooms/#{room.id}/start_game", method: :post do |form| %>
-				<label>Story Type</label>
-				<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
-				<%= form.submit "Start Game", class: :inline %>
-			<% end %>
-		<% end %>
-		<% if room.previous_games.present? %>
-			<p>Previous Games</p>
-			<ul class='previous_games'>
-				<% room.previous_games.each_with_index do |game, i| %>
-					<li><%= link_to "Game #{i+1}", game_path(game) %></li>
-				<% end %>	
-			</ul>
-		<% end %>
+		<%= render partial: "rooms/lobby", locals: { room: room } %>
 	<% elsif !room.game.includes_player?(room.viewer) %>
 		<p>The game is already started. You'll have to wait for the next one.</p>
 	<% else %>

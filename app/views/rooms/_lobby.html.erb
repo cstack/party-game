@@ -1,0 +1,38 @@
+<h1>Lobby</h1>
+<% if room.viewing_as_leader? %>
+	<p>Share this link with your friends:</p>
+	<div data-controller="copy">
+		<button class="url" data-action="copy#select" data-copy-target="text"><%= room_url(room) %></button>
+		<div data-copy-target="confirmation" class="hidden">
+			Copied!
+		</div>
+	</div>
+<% end %>
+
+<p>Start the game once everyone has joined</p>
+<div class="users">
+	<%= turbo_frame_tag "room_users" do %>
+		<% room.room_users.each do |room_user| %>
+			<%= render room_user %>
+		<% end %>
+	<% end %>
+</div>
+<% if @not_yet_joined %>
+	<%= form_with url: "/rooms/#{room.id}/join", method: :post do |form| %>
+		<%= form.submit "Join" %>
+	<% end %>
+<% else %>
+	<%= form_with url: "/rooms/#{room.id}/start_game", method: :post do |form| %>
+		<label>Story Type</label>
+		<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
+		<%= form.submit "Start Game", class: :inline %>
+	<% end %>
+<% end %>
+<% if room.previous_games.present? %>
+	<p>Previous Games</p>
+	<ul class='previous_games'>
+		<% room.previous_games.each_with_index do |game, i| %>
+			<li><%= link_to "Game #{i+1}", game_path(game) %></li>
+		<% end %>	
+	</ul>
+<% end %>

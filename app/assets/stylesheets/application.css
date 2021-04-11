@@ -111,6 +111,17 @@ input[type=submit].inline {
   list-style-type: none;
 }
 
+.url {
+  padding: 15px;
+  border-radius: 6px;
+  background-image: linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%);
+  cursor: pointer;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
 
 /* DEBUG */
 

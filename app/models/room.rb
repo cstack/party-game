@@ -51,4 +51,12 @@ class Room < ApplicationRecord
 		@viewer = user
 		self
 	end
+
+	def viewing_as_leader?
+		viewer == leader
+	end
+
+	def leader
+		users.first
+	end
 end
