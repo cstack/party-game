@@ -6,6 +6,21 @@ class Game < ApplicationRecord
 	has_many :users, through: :game_users
 	has_many :votes, through: :movies
 
+	after_initialize :set_token
+	def set_token
+		self.token ||= SecureRandom.hex(5)
+	end
+
+	def to_param
+		token
+	end
+
+	class << self
+		def find(id)
+			find_by(token: id) || find_by(id: id)
+		end
+	end
+
 	VALID_STATUSES = ['waiting_for_players', 'started', 'finished']
   validates :status, inclusion: { in: VALID_STATUSES }
 	after_initialize :set_default_status
