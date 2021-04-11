@@ -2,7 +2,7 @@
 <% if room.viewing_as_leader? %>
 	<p>Share this link with your friends:</p>
 	<div data-controller="copy">
-		<button class="url" data-action="copy#select" data-copy-target="text"><%= room_url(room) %></button>
+		<a class="url" data-action="copy#select" data-copy-target="text"><%= room_url(room) %></a>
 		<div data-copy-target="confirmation" class="hidden">
 			Copied!
 		</div>

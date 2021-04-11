@@ -117,6 +117,12 @@ input[type=submit].inline {
   background-image: linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%);
   cursor: pointer;
   width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.url:hover {
+  color: black;
 }
 
 .hidden {
