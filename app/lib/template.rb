@@ -8,7 +8,10 @@ class Template
 		'movie',
 		'startup',
 		'real_estate',
-		'superhero'
+		'superhero',
+		'restaurant',
+		'college_course',
+		'job_listing'
 	]
 
 	def name
@@ -21,6 +24,12 @@ class Template
 			'Real Estate Listing'
 		when 'superhero'
 			'Superhero'
+		when 'restaurant'
+			'Restaurant'
+		when 'college_course'
+			'College Course'
+		when 'job_listing'
+			'Job Listing'
 		end
 	end
 
@@ -34,6 +43,12 @@ class Template
 			'The listing so far...'
 		when 'superhero'
 			'Our superhero so far...'
+		when 'restaurant'
+			'The restaurant so far...'
+		when 'college_course'
+			'Course description so far...'
+		when 'job_listing'
+			'The job listing so far...'
 		end
 	end
 
@@ -47,6 +62,12 @@ class Template
 			'Vote for best listing!'
 		when 'superhero'
 			'Vote for best superhero!'
+		when 'restaurant'
+			'Vote for best restaurant!'
+		when 'college_course'
+			'Vote for best course description!'
+		when 'job_listing'
+			'Vote for best job listing!'
 		end
 	end
 
@@ -60,6 +81,12 @@ class Template
 			RealEstate::BLANKS
 		when 'superhero'
 			Superhero::BLANKS
+		when 'restaurant'
+			Restaurant::BLANKS
+		when 'college_course'
+			CollegeCourse::BLANKS
+		when 'job_listing'
+			JobListing::BLANKS
 		end
 	end
 
@@ -351,6 +378,218 @@ class Template
 	      {
 	      	prefix: 'And they go by the name "',
 	        suffix: '"',
+	      },
+	    ],
+	  ]
+	end
+
+	module Restaurant
+		BLANKS = [
+	  	[
+	      :cuisine,
+	      {
+	      	prompt: 'Pick a type of restaurant',
+	        prefix: 'Check out this',
+	        suffix: 'restaurant',
+	      },
+	    ],
+	    [
+	      :style,
+	      {
+	      	prefix: 'known for its',
+	        suffix: 'dishes',
+	      },
+	    ],
+	    [
+	      :influence,
+	      {
+	      	prefix: 'combined with',
+	        suffix: 'influences.',
+	      },
+	    ],
+	    [
+	      :signature_dish,
+	      {
+	      	prefix: 'Enjoy their signature dish:',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :side,
+	      {
+	      	prefix: ', served with a side of',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :staple,
+	      {
+	      	prefix: 'Other staples like',
+	        suffix: 'fill out the meal.',
+	      },
+	    ],
+	    [
+	      :dessert,
+	      {
+	      	prefix: "For dessert, I recommend a delicious",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :difference,
+	      {
+	      	prefix: 'Unlike other restaurants, this place',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :best_part,
+	      {
+	      	prefix: 'But the best part of the experience is',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :title,
+	      {
+	      	prefix: 'The name of the restaurant is',
+	        suffix: '.',
+	      },
+	    ],
+	  ]
+	end
+
+	module CollegeCourse
+		BLANKS = [
+	  	[
+	      :subject,
+	      {
+	        prefix: 'In this course, students study',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :related,
+	      {
+	      	prefix: 'as related to',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :area1,
+	      {
+	      	prefix: "We'll start by examining",
+	        suffix: ',',
+	      },
+	    ],
+	    [
+	      :area2,
+	      {
+	      	prefix: "then move on to",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :knowledge,
+	      {
+	      	prefix: "By the end of the semester, students will understand",
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :learning_outcome,
+	      {
+	      	prefix: "and will be able to",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :department,
+	      {
+	      	prefix: "This course is offered by the department of",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :prerequisites,
+	      {
+	      	prefix: "Prerequisites:",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :title,
+	      {
+	      	prefix: "Course Name:",
+	        suffix: '',
+	      },
+	    ],
+	  ]
+	end
+
+	module JobListing
+		BLANKS = [
+	  	[
+	      :role,
+	      {
+	        prefix: 'Our company is looking to fill the role of',
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :work_with,
+	      {
+	      	prefix: 'You will work with',
+	        suffix: '',
+	      },
+	    ],
+	    [
+	      :process,
+	      {
+	      	prefix: "to ensure",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :requirement,
+	      {
+	      	prefix: "You must be able to",
+	        suffix: ',',
+	      },
+	    ],
+	    [
+	      :responsiblity,
+	      {
+	      	prefix: "since you will be responsible for",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :adjective,
+	      {
+	      	prefix: "",
+	        suffix: 'candidates only.',
+	      },
+	    ],
+	    [
+	      :field,
+	      {
+	      	prefix: "Minimum 5 years experience in",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :bonus,
+	      {
+	      	prefix: "Bonus if you can",
+	        suffix: '.',
+	      },
+	    ],
+	    [
+	      :title,
+	      {
+	      	prefix: "Company Name:",
+	        suffix: '',
 	      },
 	    ],
 	  ]
