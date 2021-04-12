@@ -23,13 +23,13 @@
 	<% end %>
 <% else %>
 	<%= form_with url: "/rooms/#{room.id}/start_game", method: :post do |form| %>
-		<label>Story Type</label>
+		<div>Story Type:</div>
 		<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
 		<%= form.submit "Start Game", class: :inline %>
 	<% end %>
 <% end %>
 <% if room.previous_games.present? %>
-	<p>Previous Games</p>
+	<h2>Previous Games</h2>
 	<ul class='previous_games'>
 		<% room.previous_games.each_with_index do |game, i| %>
 			<li><%= link_to "Game #{i+1}", game_path(game) %></li>
