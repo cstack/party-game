@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_202942) do
+ActiveRecord::Schema.define(version: 2021_04_13_221715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "assignments", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_assignments_on_game_id"
+    t.index ["story_id"], name: "index_assignments_on_story_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
   create_table "blanks", force: :cascade do |t|
-    t.bigint "movie_id", null: false
+    t.bigint "story_id", null: false
     t.text "key"
     t.text "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movie_id"], name: "index_blanks_on_movie_id"
+    t.index ["story_id"], name: "index_blanks_on_story_id"
   end
 
   create_table "game_users", force: :cascade do |t|
@@ -50,23 +61,6 @@ ActiveRecord::Schema.define(version: 2021_04_11_202942) do
     t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
-  create_table "movie_assignments", force: :cascade do |t|
-    t.bigint "movie_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "game_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_movie_assignments_on_game_id"
-    t.index ["movie_id"], name: "index_movie_assignments_on_movie_id"
-    t.index ["user_id"], name: "index_movie_assignments_on_user_id"
-  end
-
-  create_table "movies", force: :cascade do |t|
-    t.integer "game_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "room_users", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -82,6 +76,12 @@ ActiveRecord::Schema.define(version: 2021_04_11_202942) do
     t.string "token"
   end
 
+  create_table "stories", force: :cascade do |t|
+    t.integer "game_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -91,20 +91,20 @@ ActiveRecord::Schema.define(version: 2021_04_11_202942) do
 
   create_table "votes", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "movie_id", null: false
+    t.bigint "story_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movie_id"], name: "index_votes_on_movie_id"
+    t.index ["story_id"], name: "index_votes_on_story_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
-  add_foreign_key "blanks", "movies"
+  add_foreign_key "assignments", "games"
+  add_foreign_key "assignments", "stories"
+  add_foreign_key "assignments", "users"
+  add_foreign_key "blanks", "stories"
   add_foreign_key "game_users", "games"
   add_foreign_key "game_users", "users"
   add_foreign_key "messages", "rooms"
-  add_foreign_key "movie_assignments", "games"
-  add_foreign_key "movie_assignments", "movies"
-  add_foreign_key "movie_assignments", "users"
-  add_foreign_key "votes", "movies"
+  add_foreign_key "votes", "stories"
   add_foreign_key "votes", "users"
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  resources :movies, only: [:show]
+  resources :stories, only: [:show]
   resources :games, only: [:show] do
     post 'fill_in_the_blank', to: 'games#fill_in_the_blank'
     post 'change_answer', to: 'games#change_answer'

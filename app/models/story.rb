@@ -1,11 +1,11 @@
-class Movie < ApplicationRecord
+class Story < ApplicationRecord
 	has_many :blanks
 	has_many :votes
 	belongs_to :game
-	has_one :movie_assignment
+	has_one :assignment
 
 	def user
-		movie_assignment.user
+		assignment.user
 	end
 
 	def template

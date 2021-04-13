@@ -1,10 +1,10 @@
 class Game < ApplicationRecord
 	belongs_to :room
-	has_many :movie_assignments
-	has_many :movies, through: :movie_assignments
+	has_many :assignments
+	has_many :stories, through: :assignments
 	has_many :game_users
 	has_many :users, through: :game_users
-	has_many :votes, through: :movies
+	has_many :votes, through: :stories
 
 	after_initialize :set_token
 	def set_token
@@ -38,35 +38,35 @@ class Game < ApplicationRecord
 		Template.new(template)
 	end
 
-	def record_vote!(user:, movie:)
-		Vote.create!(user: user, movie: movie)
+	def record_vote!(user:, story:)
+		Vote.create!(user: user, story: story)
 		if all_votes_collected?
 			# broadcast_replace_to room
 		end
 	end
 
 	def ready_to_advance_turn?
-		movies.none?(&:waiting_for_input?)
+		stories.none?(&:waiting_for_input?)
 	end
 
 	def advance_turn!
-		movies.each do |movie|
-			next_blank = movie.create_next_blank!
+		stories.each do |story|
+			next_blank = story.create_next_blank!
 		end
-		rotate_movie_assignments!
+		rotate_assignments!
 	end
 
-	def rotate_movie_assignments!
-		assignments = movie_assignments.sort_by(&:id)
-		movie_ids = assignments.map(&:movie_id)
-		movie_ids = movie_ids.drop(1) + [movie_ids.first]
-		assignments.zip(movie_ids).each do |assignment, movie_id|
-			assignment.update!(movie_id: movie_id)
+	def rotate_assignments!
+		sorted_assignments = assignments.sort_by(&:id)
+		story_ids = sorted_assignments.map(&:story_id)
+		story_ids = story_ids.drop(1) + [story_ids.first]
+		sorted_assignments.zip(story_ids).each do |assignment, story_id|
+			assignment.update!(story_id: story_id)
 		end
 	end
 
 	def all_stories_complete?
-		movies.all?(&:complete?)
+		stories.all?(&:complete?)
 	end
 
 	def has_vote?(user)
@@ -81,13 +81,13 @@ class Game < ApplicationRecord
 		votes.map(&:user_id).uniq.sort == users.map(&:id).uniq.sort
 	end
 
-	def movie_for(user)
+	def story_for(user)
 		raise "user is nil" if user.nil?
-		movie_assignments.find_by(user: user).movie
+		assignments.find_by(user: user).story
 	end
 
 	def winner
-		movies.max_by(&:num_votes)
+		stories.max_by(&:num_votes)
 	end
 
 	def includes_player?(user)
@@ -103,7 +103,7 @@ class Game < ApplicationRecord
 	end
 
 	def status_for_user(user)
-		if movie_for(user).waiting_for_input? || waiting_for_vote?(user)
+		if story_for(user).waiting_for_input? || waiting_for_vote?(user)
 			"🤔"
 		else
 			"✅"

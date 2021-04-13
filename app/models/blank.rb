@@ -1,8 +1,8 @@
 class Blank < ApplicationRecord
-  belongs_to :movie
+  belongs_to :story
 
   def config
-  	movie.template.config_for(self.key)
+  	story.template.config_for(self.key)
   end
 
   def prompt?
@@ -34,6 +34,6 @@ class Blank < ApplicationRecord
   end
 
   def position
-    movie.template.index_of(key)
+    story.template.index_of(key)
   end
 end

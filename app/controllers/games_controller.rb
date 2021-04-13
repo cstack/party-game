@@ -21,8 +21,8 @@ class GamesController < ApplicationController
 
   def fill_in_the_blank
     game = Game.find(params[:game_id])
-    movie = game.movie_for(current_user)
-    movie.fill_in_the_blank(params[:value])
+    story = game.story_for(current_user)
+    story.fill_in_the_blank(params[:value])
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.ready_to_advance_turn?
       game.advance_turn!
@@ -34,8 +34,8 @@ class GamesController < ApplicationController
 
   def change_answer
     game = Game.find(params[:game_id])
-    movie = game.movie_for(current_user)
-    movie.undo_fill_in_the_blank!
+    story = game.story_for(current_user)
+    story.undo_fill_in_the_blank!
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     room = game.room.from_perspective_of(current_user)
     render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
@@ -43,8 +43,8 @@ class GamesController < ApplicationController
 
   def vote
     game = Game.find(params[:game_id])
-    movie = Movie.find(params[:movie_id])
-    game.record_vote!(user: current_user, movie: movie)
+    story = Story.find(params[:story_id])
+    game.record_vote!(user: current_user, story: story)
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.all_votes_collected?
       helpers.broadcast_all_votes_in(game: game, current_user: current_user)

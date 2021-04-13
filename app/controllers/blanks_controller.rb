@@ -64,6 +64,6 @@ class BlanksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blank_params
-      params.require(:blank).permit(:movie_id, :key, :value)
+      params.require(:blank).permit(:story_id, :key, :value)
     end
 end

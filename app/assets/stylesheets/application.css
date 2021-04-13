@@ -35,18 +35,18 @@ p {
   margin-top: 50px;
 }
 
-.movie {
+.story {
   padding: 5px;
   margin: 15px 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 6px;
 }
 
-.movie_title {
+.story_title {
   border-bottom: 1px solid #eeeeee;
 }
 
-.movie_description {
+.story_description {
 	font-size: 25px;
 	line-height: 40px;
 }
@@ -154,7 +154,7 @@ a.url:hover {
 	border: 1px solid blue;
 }
 
-.debug .movie {
+.debug .story {
 	border: 1px solid purple;
 }
 

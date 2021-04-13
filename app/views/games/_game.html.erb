@@ -7,14 +7,14 @@
 <% elsif game.all_stories_complete? %>
 	<h2><%= game.voting_title %></h2>
 	<p>Take turns reading out loud. Read the one you named.</p>
-	<% game.movies.each do |movie| %>
-		<%= render movie %>
+	<% game.stories.each do |story| %>
+		<%= render story %>
 	<% end %>
 	<% if game.has_vote?(game.room.viewer) %>
 		<p>Waiting for other players to vote...</p>
 	<% else %>
 		<%= form_with url: "/games/#{game.id}/vote", method: :post do |form| %>
-			<%= form.collection_select :movie_id, game.movies, :id, :title, { include_blank: "--Choose--" }, { required: true } %>
+			<%= form.collection_select :story_id, game.stories, :id, :title, { include_blank: "--Choose--" }, { required: true } %>
 			<%= form.submit "VOTE!", class: 'inline' %>
 		<% end %>
 	<% end %>
@@ -24,8 +24,8 @@
 		<% end %>
 	<% end %>
 <% else %>
-	<%= render game.movie_for(game.room.viewer) %>
-	<%if game.movie_for(game.room.viewer).waiting_for_input? %>
+	<%= render game.story_for(game.room.viewer) %>
+	<%if game.story_for(game.room.viewer).waiting_for_input? %>
 		<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post, html: { autocomplete: "off", autocapitalize: "off" } do |form| %>
 			<%= form.text_field :value, required: true %>
 			<%= form.submit "Submit", class: 'inline' %>

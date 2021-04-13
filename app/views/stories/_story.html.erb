@@ -1,0 +1,13 @@
+<% if story.partly_filled_out? %>
+	<p><%= story.partly_filled_out_message %></p>
+<% end %>
+<div class="story">
+	<% if story.complete? %>
+		<h1 class='story_title'><%= story.title %></h1>
+	<% end %>
+	<p class="story_description">
+		<% story.blanks_to_render.each do |blank| %>
+			<%= render blank %>
+		<% end %>
+	</p>
+</div>

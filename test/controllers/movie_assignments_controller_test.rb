@@ -1,48 +1,48 @@
 require "test_helper"
 
-class MovieAssignmentsControllerTest < ActionDispatch::IntegrationTest
+class AssignmentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @movie_assignment = movie_assignments(:one)
+    @assignment = assignments(:one)
   end
 
   test "should get index" do
-    get movie_assignments_url
+    get assignments_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_movie_assignment_url
+    get new_assignment_url
     assert_response :success
   end
 
-  test "should create movie_assignment" do
-    assert_difference('MovieAssignment.count') do
-      post movie_assignments_url, params: { movie_assignment: { game_id: @movie_assignment.game_id, movie_id: @movie_assignment.movie_id, user_id: @movie_assignment.user_id } }
+  test "should create assignment" do
+    assert_difference('Assignment.count') do
+      post assignments_url, params: { assignment: { game_id: @assignment.game_id, movie_id: @assignment.movie_id, user_id: @assignment.user_id } }
     end
 
-    assert_redirected_to movie_assignment_url(MovieAssignment.last)
+    assert_redirected_to assignment_url(Assignment.last)
   end
 
-  test "should show movie_assignment" do
-    get movie_assignment_url(@movie_assignment)
+  test "should show assignment" do
+    get assignment_url(@assignment)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_movie_assignment_url(@movie_assignment)
+    get edit_assignment_url(@assignment)
     assert_response :success
   end
 
-  test "should update movie_assignment" do
-    patch movie_assignment_url(@movie_assignment), params: { movie_assignment: { game_id: @movie_assignment.game_id, movie_id: @movie_assignment.movie_id, user_id: @movie_assignment.user_id } }
-    assert_redirected_to movie_assignment_url(@movie_assignment)
+  test "should update assignment" do
+    patch assignment_url(@assignment), params: { assignment: { game_id: @assignment.game_id, movie_id: @assignment.movie_id, user_id: @assignment.user_id } }
+    assert_redirected_to assignment_url(@assignment)
   end
 
-  test "should destroy movie_assignment" do
-    assert_difference('MovieAssignment.count', -1) do
-      delete movie_assignment_url(@movie_assignment)
+  test "should destroy assignment" do
+    assert_difference('Assignment.count', -1) do
+      delete assignment_url(@assignment)
     end
 
-    assert_redirected_to movie_assignments_url
+    assert_redirected_to assignments_url
   end
 end

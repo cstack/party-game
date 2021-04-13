@@ -36,9 +36,9 @@ class Room < ApplicationRecord
 		Game.create!(room: self, users: users, status: 'started', template: template)
 		users.each do |user|
 			game.users << user
-			movie = Movie.create!(game: game)
-			movie.create_first_blank!
-			MovieAssignment.create!(movie: movie, user: user, game: game)
+			story = Story.create!(game: game)
+			story.create_first_blank!
+			Assignment.create!(story: story, user: user, game: game)
 		end
 	end
 

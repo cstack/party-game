@@ -61,25 +61,25 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     all_players_fill_in_an_answer("V10", users)
 
     expect(user1).to have_css('input#value')
-    expected_movie_text = "A(n) P1V1 movie starring P2V2 as a(n) P1V3 in P2V4 . "\
+    expected_story_text = "A(n) P1V1 movie starring P2V2 as a(n) P1V3 in P2V4 . "\
       "They meet a(n) P1V5 played by P2V6 . "\
       "The protagonist must P1V7 , but there is a problem: P2V8 . "\
       "To makes things even worse, P1V9 . "\
       "But by the end of the movie, P2V10 . "\
       "Now what should the movie be called?"
-    if expected_movie_text != user1.find('.movie').text
-      puts movie_text
+    if expected_story_text != user1.find('.story').text
+      puts user1.find('.story').text
     end
-    expect(user1.find('.movie').text).to eq(expected_movie_text)
+    expect(user1.find('.story').text).to eq(expected_story_text)
   
     all_players_fill_in_an_answer("Title", users)
 
     expect(user1).to have_css("input[value='VOTE!']")
-    user1.select "P1Title", :from => "movie_id"
+    user1.select "P1Title", :from => "story_id"
     user1.click_on "VOTE!"
 
     expect(user2).to have_css("input[value='VOTE!']")
-    user2.select "P1Title", :from => "movie_id"
+    user2.select "P1Title", :from => "story_id"
     user2.click_on "VOTE!"
     expect(user2).to have_content("Winner")
 
