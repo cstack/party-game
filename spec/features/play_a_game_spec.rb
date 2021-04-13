@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Play A Game", :type => :feature, js: true do
-  before do
-    Capybara.current_driver = :selenium_chrome_headless
-  end
-
   def wait_for_turbo_to_load
     sleep 0.5
   end
@@ -50,7 +46,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     expect(user2).to have_css('input#value')
     user1.fill_in "value", with: "P1V1"
     user1.click_on "Submit"
-    expect(user1).to have_content("Change Answer")
+    expect(user1).to have_css("input[value='Change Answer']")
     user1.click_on "Change Answer"
 
     all_players_fill_in_an_answer("V1", users)

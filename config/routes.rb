@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :movies, only: [:show]
   resources :games, only: [:show] do
     post 'fill_in_the_blank', to: 'games#fill_in_the_blank'
-    get 'change_answer', to: 'games#change_answer'
+    post 'change_answer', to: 'games#change_answer'
     post 'vote', to: 'games#vote'
   end
   resources :rooms, only: [:show, :create] do

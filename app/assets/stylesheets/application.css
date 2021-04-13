@@ -73,6 +73,21 @@ input[type=submit] {
   background: #4dbecf;
 }
 
+input[type=submit].secondary-action {
+  padding: none;
+  font-weight: normal;
+  text-transform: none;
+  font-size: 16px;
+  line-height: 1em;
+  background: none;
+  color: #0076d1;
+}
+
+input[type=submit].secondary-action:hover {
+  background: black;
+  color: white;
+}
+
 input[type=submit]:hover {
   background: #34919e;
 }
