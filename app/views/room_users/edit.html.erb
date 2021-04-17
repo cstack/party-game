@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "room_user_#{@room_user.id}", target: "_top" do %>
 	<%= form_with(model: [ @room_user.room, @room_user ]) do |form| %>
 		<div class="field">
-			<%= form.text_field :name %>
+			<%= form.text_field :name, maxlength: 50 %>
 			<%= form.submit "Save", class: 'inline' %>
 		</div>
 	<% end %>

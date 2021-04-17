@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= form.text_field :name %>
+    <%= form.text_field :name, maxlength: 50 %>
     <%= form.submit "Update", class: 'inline' %>
   </div>
 <% end %>

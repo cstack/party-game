@@ -1,6 +1,8 @@
 class Blank < ApplicationRecord
   belongs_to :story
 
+  validates :value, length: { maximum: 280 }, allow_blank: true
+
   def config
   	story.template.config_for(self.key)
   end
