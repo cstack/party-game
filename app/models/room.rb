@@ -33,13 +33,13 @@ class Room < ApplicationRecord
 	end
 
 	def new_game!(template:)
-		Game.create!(room: self, users: users, status: 'started', template: template)
+		new_game = Game.create!(room: self, users: users, status: 'started', template: template)
 		users.each do |user|
-			game.users << user
 			story = Story.create!(game: game)
 			story.create_first_blank!
 			Assignment.create!(story: story, user: user, game: game)
 		end
+		new_game
 	end
 
 	def finish_game!
