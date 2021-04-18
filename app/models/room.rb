@@ -35,9 +35,9 @@ class Room < ApplicationRecord
 	def new_game!(template:)
 		new_game = Game.create!(room: self, users: users, status: 'started', template: template)
 		users.each do |user|
-			story = Story.create!(game: game)
+			story = Story.create!(game: new_game)
 			story.create_first_blank!
-			Assignment.create!(story: story, user: user, game: game)
+			Assignment.create!(story: story, user: user, game: new_game)
 		end
 		new_game
 	end
