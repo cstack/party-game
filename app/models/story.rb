@@ -4,6 +4,21 @@ class Story < ApplicationRecord
 	belongs_to :game
 	has_one :assignment
 
+	after_initialize :set_token
+	def set_token
+		self.token ||= SecureRandom.hex(5)
+	end
+
+	def to_param
+		token
+	end
+
+	class << self
+		def find(id)
+			find_by(token: id) || find_by(id: id)
+		end
+	end
+
 	def user
 		assignment.user
 	end
