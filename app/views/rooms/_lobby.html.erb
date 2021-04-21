@@ -2,7 +2,7 @@
 <% if room.viewing_as_leader? %>
 	<p>Share this link with your friends:</p>
 	<div data-controller="copy">
-		<a class="url" data-action="copy#select" data-copy-target="text"><%= room_url(room) %></a>
+		<a class="url" data-action="copy#select" data-copy-target="text"><%= "https://www.pitchparty.games#{room_path(room)}" %></a>
 		<div data-copy-target="confirmation" class="hidden">
 			Copied!
 		</div>

@@ -29,6 +29,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
 
     user1.click_on "Create a Room"
     expect(user1).to have_content("Lobby")
+    expect(user1.find('.url')).to have_content("https://www.pitchparty.games/rooms/#{Room.last.token}")
 
     room_path = user1.current_path
 
