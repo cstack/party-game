@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
 	around_action :log_everything
 
 	DEBUG = false
+
+	rescue_from StandardError do |exception|
+		Bugsnag.notify(exception)
+    raise exception
+  end
 	
 	private
 
