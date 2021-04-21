@@ -1,5 +1,6 @@
 class Blank < ApplicationRecord
   belongs_to :story
+  belongs_to :user, optional: true
 
   validates :value, length: { maximum: 280 }, allow_blank: true
 

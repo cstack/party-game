@@ -64,7 +64,7 @@ class Story < ApplicationRecord
 	end
 
 	def create_first_blank!
-		blanks << Blank.new(key: template.first_blank_key)
+		blanks.create!(key: template.first_blank_key)
 	end
 
 	def create_next_blank!
