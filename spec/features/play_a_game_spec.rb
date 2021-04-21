@@ -30,12 +30,15 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     user1.click_on "Create a Room"
     expect(user1).to have_content("Lobby")
     expect(user1.find('.url')).to have_content("https://www.pitchparty.games/rooms/#{Room.last.token}")
+    expect(user1).to have_content("Start the game once everyone has joined")
 
     room_path = user1.current_path
 
     user2.visit "#{page.server_url}#{room_path}"
     wait_for_turbo_to_load
     user2.click_on "Join"
+    expect(user2).to have_content("Waiting for user1 to start the game")
+
     user2.click_on "Edit Name"
     user2.fill_in "room_user_name", with: 'user2'
     user2.click_button "Save"

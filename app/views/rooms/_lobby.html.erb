@@ -9,7 +9,6 @@
 	</div>
 <% end %>
 
-<p>Start the game once everyone has joined</p>
 <div class="users">
 	<%= turbo_frame_tag "room_users" do %>
 		<% room.room_users.each do |room_user| %>
@@ -21,12 +20,15 @@
 	<%= form_with url: "/rooms/#{room.id}/join", method: :post do |form| %>
 		<%= form.submit "Join" %>
 	<% end %>
-<% else %>
+<% elsif room.viewing_as_leader? %>
+	<p>Start the game once everyone has joined</p>
 	<%= form_with url: "/rooms/#{room.id}/start_game", method: :post do |form| %>
 		<div>Story Type:</div>
 		<%= form.collection_select :template, room.templates, :key, :name, include_blank: false %>
 		<%= form.submit "Start Game", class: :inline %>
 	<% end %>
+<% else %>
+	<p>Waiting for <%= room.leader.name %> to start the game</p>
 <% end %>
 <% if room.previous_games.present? %>
 	<h2>Previous Games</h2>
