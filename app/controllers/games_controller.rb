@@ -22,7 +22,7 @@ class GamesController < ApplicationController
   def fill_in_the_blank
     game = Game.find(params[:game_id])
     story = game.story_for(current_user)
-    story.fill_in_the_blank(params[:value])
+    story.fill_in_the_blank(value: params[:value], user: current_user)
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.ready_to_advance_turn?
       game.advance_turn!

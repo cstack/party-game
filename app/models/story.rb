@@ -27,8 +27,8 @@ class Story < ApplicationRecord
 		Template.new(game.template)
 	end
 
-	def fill_in_the_blank(value)
-		blanks.last.update!(value: value)
+	def fill_in_the_blank(value:, user:)
+		blanks.last.update!(value: value, user: user)
 	end
 
 	def undo_fill_in_the_blank!
