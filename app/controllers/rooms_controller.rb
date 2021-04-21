@@ -40,7 +40,7 @@ class RoomsController < ApplicationController
 
   def join
     @room = Room.find(params[:room_id])
-    room_user = RoomUser.find_or_initialize_by(user: current_user, room: @room)
+    room_user = @room.room_users.find_or_initialize_by(user: current_user)
     if room_user.new_record?
       room_user.save
       helpers.broadcast_user_joined_room(user: current_user, room: @room)
