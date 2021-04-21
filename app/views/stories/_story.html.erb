@@ -3,7 +3,7 @@
 <% end %>
 <div class="story">
 	<% if story.complete? %>
-		<h1 class='story_title'><%= story.title %></h1>
+		<h1 class='story_title' style="background:<%= story.title_blank.color %>"><%= story.title %></h1>
 	<% end %>
 	<p class="story_description">
 		<% story.blanks_to_render.each do |blank| %>

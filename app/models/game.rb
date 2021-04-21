@@ -109,4 +109,8 @@ class Game < ApplicationRecord
 			"✅"
 		end
 	end
+
+	def color_for(user)
+		room.room_users.find_by(user: user).color
+	end
 end

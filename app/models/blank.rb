@@ -39,4 +39,17 @@ class Blank < ApplicationRecord
   def position
     story.template.index_of(key)
   end
+
+  def color
+    room_user&.color
+  end
+
+  def room_user
+    # may be nil for legacy blanks
+    room.room_users.find_by(user: user)
+  end
+
+  def room
+    story.game.room
+  end
 end

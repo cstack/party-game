@@ -83,6 +83,10 @@ class Story < ApplicationRecord
 		get('title')
 	end
 
+	def title_blank
+		blanks.find_by(key: 'title')
+	end
+
 	def num_votes
 		votes.count
 	end

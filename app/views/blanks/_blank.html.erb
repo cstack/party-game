@@ -5,5 +5,5 @@
 		<%= blank.prefix %> <span class="fill_in_the_blank"><%= blank.placeholder %></span> <%= blank.suffix %>
 	<% end %>
 <% else %>
-	<%= blank.prefix %> <span class="fill_in_the_blank"><%= blank.value %></span> <%= blank.suffix %>
+	<%= blank.prefix %> <span class="fill_in_the_blank" style="background:<%= blank.color %>"><%= blank.value %></span> <%= blank.suffix %>
 <% end %>

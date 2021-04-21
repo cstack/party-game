@@ -1,8 +1,8 @@
 <%= turbo_frame_tag "room_user_#{room_user.id}" do %>
-	<p id="<%= dom_id room_user %>">
-		<%= room_user.user.name %>
+	<div id="<%= dom_id room_user %>">
+		<button class="user_tag" style="background:<%= room_user.color %>"><%= room_user.user.name %></button>
 		<% if room_user.user == @current_user %>
 			(<%= link_to 'Edit Name', edit_room_room_user_path(room_user.room, room_user) %>)
 		<% end %>
-	</p>
+	</div>
 <% end %>

@@ -18,6 +18,14 @@ class Room < ApplicationRecord
 		end
 	end
 
+	def next_color
+		next_unused_color || Color.random
+	end
+
+	def next_unused_color
+		(Color.all - room_users.map(&:color)).uniq.shuffle.first
+	end
+
 	def game
 		games.where.not(status: 'finished').last
 	end
