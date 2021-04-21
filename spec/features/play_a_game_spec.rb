@@ -43,17 +43,27 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     user2.fill_in "room_user_name", with: 'user2'
     user2.click_button "Save"
     expect(user2).to have_content("user1\nuser2 (Edit Name)")
-
     expect(user1).to have_content("user1 (Edit Name)\nuser2")
 
     user1.click_on "Start Game"
+    expect(user1).to have_content("🤔 user1\n🤔 user2\nHome")
+    expect(user2).to have_content("🤔 user1\n🤔 user2\nHome")
     expect(user2).to have_css('input#value')
+
     user1.fill_in "value", with: "P1V1"
     user1.click_on "Submit"
     expect(user1).to have_css("input[value='Change Answer']")
+    expect(user1).to have_content("✅ user1\n🤔 user2\nHome")
+    expect(user2).to have_content("✅ user1\n🤔 user2\nHome")
+
     user1.click_on "Change Answer"
+    expect(user1).to have_content("🤔 user1\n🤔 user2\nHome")
+    expect(user2).to have_content("🤔 user1\n🤔 user2\nHome")
 
     all_players_fill_in_an_answer("V1", users)
+    expect(user1).to have_content("🤔 user1\n🤔 user2\nHome")
+    expect(user2).to have_content("🤔 user1\n🤔 user2\nHome")
+
     all_players_fill_in_an_answer("V2", users)
     all_players_fill_in_an_answer("V3", users)
     all_players_fill_in_an_answer("V4", users)
