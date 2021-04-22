@@ -28,7 +28,7 @@
 		<%= form.submit "Start Game", class: :inline %>
 	<% end %>
 <% else %>
-	<p>Waiting for <%= room.leader.name %> to start the game</p>
+	<p>Waiting for leader to start the game</p>
 <% end %>
 <% if room.previous_games.present? %>
 	<h2>Previous Games</h2>

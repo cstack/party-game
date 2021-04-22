@@ -6,7 +6,10 @@ module ApplicationHelper
 
 	def broadcast_username_change(room_user:)
 		Rails.logger.info("DEBUG - broadcast_username_change")
-		room_user.broadcast_replace_to room_user.room
+		Turbo::StreamsChannel.broadcast_action_to room_user.room,
+			action: :update,
+			target: "username_#{room_user.user.id}",
+			content: room_user.user.name
 	end
 
 	def broadcast_game_start(room:, current_user:)

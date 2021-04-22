@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "player_status_#{user.id}_#{game.id}" do %>
+	<div><%= game.status_for_user(user) %> <button class="user_tag" style="background:<%= game.color_for(user) %>"><%= user.name %></button></div>
+<% end %>
