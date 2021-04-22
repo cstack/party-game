@@ -21,7 +21,7 @@ class Game < ApplicationRecord
 		end
 	end
 
-	VALID_STATUSES = ['waiting_for_players', 'started', 'finished']
+	VALID_STATUSES = ['waiting_for_players', 'started', 'finished', 'cancelled']
   validates :status, inclusion: { in: VALID_STATUSES }
 	after_initialize :set_default_status
 	def set_default_status

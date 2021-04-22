@@ -27,7 +27,7 @@ class Room < ApplicationRecord
 	end
 
 	def game
-		games.where.not(status: 'finished').last
+		games.where(status: 'started').last
 	end
 
 	def previous_games

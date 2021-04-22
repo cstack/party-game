@@ -41,4 +41,12 @@
 			<%= render partial: "player_status", locals: { user: user, game: game } %>
 		<% end %>
 	<% end %>
+	<% if game.room.viewing_as_leader? %>
+		<details class="options">
+	    <summary>Options</summary>
+	    <%= form_with url: "/games/#{game.id}/restart", method: :post do |form| %>
+				<%= form.submit "Restart Game", class: 'secondary-action' %>
+			<% end %>
+		</details>
+	<% end %>
 <% end %>

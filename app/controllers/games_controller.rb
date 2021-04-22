@@ -53,6 +53,14 @@ class GamesController < ApplicationController
     render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
   end
 
+  def restart
+    game = Game.find(params[:game_id])
+    game.update!(status: 'cancelled')
+    helpers.broadcast_game_restarted(room: game.room, current_user: current_user)
+    room = game.room.from_perspective_of(current_user)
+    render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
+  end
+
   # POST /games or /games.json
   def create
     @game = Game.new(game_params)

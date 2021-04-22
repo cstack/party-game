@@ -145,6 +145,14 @@ a.url:hover {
   display: none;
 }
 
+details.options {
+  background: none;
+}
+
+details.options summary {
+  background: none;
+}
+
 /* DEBUG */
 
 .debug turbo-frame {

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     post 'fill_in_the_blank', to: 'games#fill_in_the_blank'
     post 'change_answer', to: 'games#change_answer'
     post 'vote', to: 'games#vote'
+    post 'restart', to: 'games#restart'
   end
   resources :rooms, only: [:show, :create] do
     resources :room_users, only: [:edit, :update, :show]

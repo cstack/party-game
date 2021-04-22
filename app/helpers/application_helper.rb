@@ -48,4 +48,12 @@ module ApplicationHelper
 			game.room.from_perspective_of(user).broadcast_replace_to "room_#{game.room.id}_user_#{user.id}"
 		end
 	end
+
+	def broadcast_game_restarted(room:, current_user:)
+		Rails.logger.info("DEBUG - broadcast_game_restarted")
+		room.users.each do |user|
+			next if user == current_user
+			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
+		end
+	end
 end
