@@ -1,1 +1,5 @@
-<%= render @story %>
+<%= render partial: 'stories/final_state', locals: { story: @story } %>
+<ul class="nav">
+	<li><%= link_to 'Home', root_path %></li>
+	<li><%= link_to 'Game', game_path(@story.game) %></li>
+</ul>

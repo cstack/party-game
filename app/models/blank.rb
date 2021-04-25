@@ -52,4 +52,8 @@ class Blank < ApplicationRecord
   def room
     story.game.room
   end
+
+  def text
+    "#{prefix} #{value} #{suffix}".strip
+  end
 end

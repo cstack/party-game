@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
 		Bugsnag.notify(exception)
     raise exception
   end
+
+  def default_url_options
+    if Rails.env.production?
+      { host: "pitchparty.games"}
+    else
+      {}
+    end
+  end
 	
 	private
 

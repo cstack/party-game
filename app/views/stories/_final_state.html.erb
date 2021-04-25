@@ -1,0 +1,17 @@
+<% if story.partly_filled_out? %>
+	<p><%= story.partly_filled_out_message %></p>
+<% end %>
+<div class="story">
+	<% if story.complete? %>
+		<h1 class='story_title' style="background:<%= story.title_blank.color %>"><%= story.title %></h1>
+	<% end %>
+	<p class="story_description">
+		<% story.blanks_to_render.each do |blank| %>
+			<%= render blank %>
+		<% end %>
+	</p>
+</div>
+<ul class="nav">
+	<li><%= link_to "Link", story %></li>
+	<li><%= link_to "Tweet", story.tweet_link %></li>
+</div>

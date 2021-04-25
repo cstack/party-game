@@ -2,7 +2,7 @@
 
 <%= render partial: 'final_state', locals: { game: @game } %>
 
-<div class="nav">
-	<%= link_to 'Back to Room', room_path(@game.room) %>
-	<%= link_to 'Home', root_path %>
-</div>
+<ul class="nav">
+	<li><%= link_to 'Back to Room', room_path(@game.room) %></li>
+	<li><%= link_to 'Home', root_path %></li>
+</ul>
