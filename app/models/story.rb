@@ -99,14 +99,6 @@ class Story < ApplicationRecord
 		end
 	end
 
-	def tweet_link
-		"https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(tweet_text)}"
-	end
-
-	def tweet_text
-		"https://pitchparty.games/stories/#{token} - #{text}"
-	end
-
 	def text
 		"#{title} - #{blanks_to_render.map(&:text).join(" ").strip}"
 	end

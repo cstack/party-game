@@ -56,4 +56,8 @@ module ApplicationHelper
 			room.from_perspective_of(user).broadcast_replace_to "room_#{room.id}_user_#{user.id}"
 		end
 	end
+
+	def story_tweet_link(story)
+		"https://twitter.com/intent/tweet?text=#{url_encode("#{story.title} - #{story_url(story)}")}"
+	end
 end
