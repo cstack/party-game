@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    if Rails.env.production?
-      { host: "pitchparty.games"}
-    else
+    # if Rails.env.production?
+    #   { host: "pitchparty.games"}
+    # else
       {}
-    end
+    # end
   end
 	
 	private
