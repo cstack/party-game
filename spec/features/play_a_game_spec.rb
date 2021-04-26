@@ -8,7 +8,6 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
   def all_players_fill_in_an_answer(turn_number, users)
     print "."
     users.each_with_index do |user, i|
-      expect(user).to have_css('input#value')
       expect(user).to have_css("input#turn_#{turn_number}", visible: false)
       value = "P#{i+1}V#{turn_number}"
       user.fill_in "value", with: value
@@ -71,6 +70,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     expect(user1).to have_content("Start the game once everyone has joined")
     expect(user2).to have_content("Waiting for leader to start the game")
 
+    user1.select "Startup", :from => "template"
     user1.click_on "Start Game"
     all_players_fill_in_an_answer("1", users)
     all_players_fill_in_an_answer("2", users)
@@ -78,36 +78,27 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     all_players_fill_in_an_answer("4", users)
     all_players_fill_in_an_answer("5", users)
     all_players_fill_in_an_answer("6", users)
-    all_players_fill_in_an_answer("7", users)
-    all_players_fill_in_an_answer("8", users)
-    all_players_fill_in_an_answer("9", users)
-    all_players_fill_in_an_answer("10", users)
 
-    expect(user1).to have_css("input#turn_11", visible: false)
-    expected_story_text = "A(n) P1V1 movie starring P2V2 as a(n) P1V3 in P2V4 . "\
-      "They meet a(n) P1V5 played by P2V6 . "\
-      "The protagonist must P1V7 , but there is a problem: P2V8 . "\
-      "To makes things even worse, P1V9 . "\
-      "But by the end of the movie, P2V10 . "\
-      "Now what should the movie be called?"
+    expect(user1).to have_css("input#turn_7", visible: false)
+    expected_story_text = "I’m working on a super stealth startup. It’s like P1V1 but for P2V2 . Have you ever had the problem where P1V3 ? Well, thanks to our P2V4 technology , you can just P1V5 instead. We'll make money by P2V6 . The startup is called ... ."
     if expected_story_text != user1.find('.story').text
       puts user1.find('.story').text
     end
     expect(user1.find('.story').text).to eq(expected_story_text)
   
-    all_players_fill_in_an_answer("11", users)
+    all_players_fill_in_an_answer("7", users)
 
     expect(user1).to have_css("input[value='VOTE!']")
-    user1.select "P1V11", :from => "story_id"
+    user1.select "P1V7", :from => "story_id"
     user1.click_on "VOTE!"
 
     expect(user2).to have_css("input[value='VOTE!']")
-    user2.select "P1V11", :from => "story_id"
+    user2.select "P1V7", :from => "story_id"
     user2.click_on "VOTE!"
     expect(user2).to have_content("Winner")
 
     expect(user1).to have_content("Winner")
-    expect(user1).to have_content("P1V11")
+    expect(user1).to have_content("P1V7")
 
     user1.click_on "New Game"
 

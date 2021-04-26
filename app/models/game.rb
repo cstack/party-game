@@ -119,7 +119,8 @@ class Game < ApplicationRecord
 			story.blanks.count
 		end.uniq
 		if counts.length > 1
-			raise "Ambigius turn number #{counts}"
+			# This is an invalid state, but don't break the game if this happens
+			0
 		else
 			counts.first
 		end

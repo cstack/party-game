@@ -20,13 +20,17 @@ class GamesController < ApplicationController
   end
 
   def fill_in_the_blank
+    Rails.logger.info("DEBUG - fill_in_the_blank #{params}")
     game = Game.find(params[:game_id])
     story = game.story_for(current_user)
     story.fill_in_the_blank(value: params[:value], user: current_user)
     helpers.broadcast_player_status_changed(game: game, user: current_user)
     if game.ready_to_advance_turn?
+      Rails.logger.info("DEBUG - ready_to_advance_turn")
       game.advance_turn!
       helpers.broadcast_advance_turn(game: game)
+    else
+      Rails.logger.info("DEBUG - NOT ready_to_advance_turn")
     end
     room = game.room.from_perspective_of(current_user)
     render turbo_stream: turbo_stream.replace("room_#{room.id}", partial: "rooms/room.html.erb", locals: { room: room })
