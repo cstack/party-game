@@ -27,6 +27,7 @@
 	<%= render game.story_for(game.room.viewer) %>
 	<%if game.story_for(game.room.viewer).waiting_for_input? %>
 		<%= form_with url: "/games/#{game.id}/fill_in_the_blank", method: :post, html: { autocomplete: "off", autocapitalize: "off" } do |form| %>
+			<%= form.hidden_field "turn_#{game.turn_number}".to_sym %>
 			<%= form.text_field :value, required: true, maxlength: 280 %>
 			<%= form.submit "Submit", class: 'inline' %>
 		<% end %>

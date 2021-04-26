@@ -26,7 +26,6 @@ RSpec.describe Story, :type => :model do
   	subject { instance.text }
   	
     it 'is correct' do
-      puts subject
       expect(subject).to eq(
         "blank7 - I’m working on a super stealth startup. It’s like blank1 but for blank2 . " \
         "Have you ever had the problem where blank3 ? Well, thanks to our blank4 technology , " \

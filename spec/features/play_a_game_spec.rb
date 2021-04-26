@@ -5,11 +5,13 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     sleep 0.5
   end
 
-  def all_players_fill_in_an_answer(suffix, users)
+  def all_players_fill_in_an_answer(turn_number, users)
     print "."
     users.each_with_index do |user, i|
       expect(user).to have_css('input#value')
-      user.fill_in "value", with: "P#{i+1}#{suffix}"
+      expect(user).to have_css("input#turn_#{turn_number}", visible: false)
+      value = "P#{i+1}V#{turn_number}"
+      user.fill_in "value", with: value
       user.click_on "Submit"
     end
   end
@@ -60,7 +62,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     expect(user1).to have_content("🤔 user1\n🤔 user2\nOptions\nHome")
     expect(user2).to have_content("🤔 user1\n🤔 user2\nHome")
 
-    all_players_fill_in_an_answer("V1", users)
+    all_players_fill_in_an_answer("1", users)
     expect(user1).to have_content("🤔 user1\n🤔 user2\nOptions\nHome")
     expect(user2).to have_content("🤔 user1\n🤔 user2\nHome")
 
@@ -70,18 +72,18 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     expect(user2).to have_content("Waiting for leader to start the game")
 
     user1.click_on "Start Game"
-    all_players_fill_in_an_answer("V1", users)
-    all_players_fill_in_an_answer("V2", users)
-    all_players_fill_in_an_answer("V3", users)
-    all_players_fill_in_an_answer("V4", users)
-    all_players_fill_in_an_answer("V5", users)
-    all_players_fill_in_an_answer("V6", users)
-    all_players_fill_in_an_answer("V7", users)
-    all_players_fill_in_an_answer("V8", users)
-    all_players_fill_in_an_answer("V9", users)
-    all_players_fill_in_an_answer("V10", users)
+    all_players_fill_in_an_answer("1", users)
+    all_players_fill_in_an_answer("2", users)
+    all_players_fill_in_an_answer("3", users)
+    all_players_fill_in_an_answer("4", users)
+    all_players_fill_in_an_answer("5", users)
+    all_players_fill_in_an_answer("6", users)
+    all_players_fill_in_an_answer("7", users)
+    all_players_fill_in_an_answer("8", users)
+    all_players_fill_in_an_answer("9", users)
+    all_players_fill_in_an_answer("10", users)
 
-    expect(user1).to have_css('input#value')
+    expect(user1).to have_css("input#turn_11", visible: false)
     expected_story_text = "A(n) P1V1 movie starring P2V2 as a(n) P1V3 in P2V4 . "\
       "They meet a(n) P1V5 played by P2V6 . "\
       "The protagonist must P1V7 , but there is a problem: P2V8 . "\
@@ -93,19 +95,19 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     end
     expect(user1.find('.story').text).to eq(expected_story_text)
   
-    all_players_fill_in_an_answer("Title", users)
+    all_players_fill_in_an_answer("11", users)
 
     expect(user1).to have_css("input[value='VOTE!']")
-    user1.select "P1Title", :from => "story_id"
+    user1.select "P1V11", :from => "story_id"
     user1.click_on "VOTE!"
 
     expect(user2).to have_css("input[value='VOTE!']")
-    user2.select "P1Title", :from => "story_id"
+    user2.select "P1V11", :from => "story_id"
     user2.click_on "VOTE!"
     expect(user2).to have_content("Winner")
 
     expect(user1).to have_content("Winner")
-    expect(user1).to have_content("P1Title")
+    expect(user1).to have_content("P1V11")
 
     user1.click_on "New Game"
 

@@ -113,4 +113,15 @@ class Game < ApplicationRecord
 	def color_for(user)
 		room.room_users.find_by(user: user).color
 	end
+
+	def turn_number
+		counts = stories.map do |story|
+			story.blanks.count
+		end.uniq
+		if counts.length > 1
+			raise "Ambigius turn number #{counts}"
+		else
+			counts.first
+		end
+	end
 end
