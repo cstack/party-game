@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
 	def redirect_from_heroku
 		if request.host.include?('herokuapp.com')
-			redirect_to :status => :found, :host => "www.pitchparty.games#{path}"
+			redirect_to :status => :found, :host => "www.pitchparty.games#{request.path}"
 		else
 			yield
 		end
