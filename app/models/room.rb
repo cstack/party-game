@@ -65,6 +65,6 @@ class Room < ApplicationRecord
 	end
 
 	def leader
-		users.first
+		@leader ||= User.find(room_users.order(:id).first.user_id)
 	end
 end
