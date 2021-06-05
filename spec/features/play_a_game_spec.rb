@@ -29,7 +29,7 @@ RSpec.feature "Play A Game", :type => :feature, js: true do
     expect(user1.find('.users')).to have_content('user1 (Edit Name)')
 
     user1.click_on "Create a Room"
-    expect(user1).to have_content("Lobby")
+    expect(user1).to have_content("Start the game")
     expect(user1.find('.url')).to have_content("https://www.pitchparty.games/rooms/#{Room.last.token}")
     expect(user1).to have_content("Start the game once everyone has joined")
 
