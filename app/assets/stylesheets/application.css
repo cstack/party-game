@@ -134,6 +134,7 @@ select {
 
 .user_tag {
   padding: 5px 10px;
+  margin: 3px;
 }
 
 input[type=submit].inline {
@@ -170,19 +171,13 @@ details.options summary {
   background: none;
 }
 
-/* DEBUG */
-
-.debug turbo-frame {
-	display: block;
-	border: 1px solid blue;
+.logo {
+  width: 50%;
+  display: block;
+  margin: auto;
 }
 
-.debug .story {
-	border: 1px solid purple;
+.main {
+  text-align: center;
 }
-
-.debug .fill_in_the_blank {
-	border: 1px solid green;
-}
-
 

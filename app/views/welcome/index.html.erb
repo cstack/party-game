@@ -1,14 +1,16 @@
-<h1>Pitch Party 🎉</h1>
+<%= render partial: "logo.html.erb" %>
 
-<p>You are:</p>
-<div class="users">
-	<%= turbo_frame_tag "user_#{@user.id}" do %>
-		<%= render @user %>
+<div class="main">
+	<p>You are:</p>
+	<div class="users">
+		<%= turbo_frame_tag "user_#{@user.id}" do %>
+			<%= render @user %>
+		<% end %>
+	</div>
+
+	<%= form_with model: @room do |form| %>
+	  <div class="actions">
+	  	<%= form.submit "Create a Room"%>
+	  </div>
 	<% end %>
 </div>
-
-<%= form_with model: @room do |form| %>
-  <div class="actions">
-    <%= form.submit "Create a Room" %>
-  </div>
-<% end %>
