@@ -13,4 +13,20 @@
 	  	<%= form.submit "Create a Room"%>
 	  </div>
 	<% end %>
+
+	<h1>How to play</h1>
+	<h2>1: Fill in the blank</h2>
+	<img style="border: 1px solid black; height: auto; width: 80vw;" src="/screenshot-1.png">
+	<h2>2: Get your neighbor's script, fill in the next blank</h2>
+	<img style="border: 1px solid black; height: auto; width: 80vw;" src="/screenshot-2.png">
+	<h2>3: Enjoy the chaos</h2>
+	<img style="border: 1px solid black; height: auto; width: 80vw;" src="/screenshot-3.png">
+	<h2>4: Vote for the best</h2>
+	<img style="border: 1px solid black; height: auto; width: 80vw;" src="/screenshot-4.png">
+
+	<%= form_with model: @room do |form| %>
+	  <div class="actions">
+	  	<%= form.submit "Create a Room"%>
+	  </div>
+	<% end %>
 </div>
